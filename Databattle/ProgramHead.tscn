@@ -9,9 +9,11 @@
 script = ExtResource( 1 )
 levelRef = NodePath("../TileMap")
 movesPerTurn = 3
+maxSize = 2
+progName = "Pick"
+col = Color( 0.388235, 0.933333, 0.290196, 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-modulate = Color( 0.388235, 0.933333, 0.290196, 1 )
 texture = ExtResource( 2 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 32, 32 )

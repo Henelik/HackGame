@@ -13,4 +13,6 @@ modulate = Color( 0.690196, 0.690196, 0.690196, 1 )
 
 [node name="ProgramHead" parent="." instance=ExtResource( 3 )]
 position = Vector2( 99.8298, -33.0236 )
+movesPerTurn = 10
+maxSize = 4
 
