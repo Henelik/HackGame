@@ -52,10 +52,17 @@ func _deselect():
 		g.queue_free()
 	moveGizmos = []
 	
-func _addTile(x, y):
+func _addTailSector(x, y):
+	for t in tailSectors: # If there is already a tail sector here
+		if x == t.tileX and y == t.tileY:
+			# Move the sector to the front of the list
+			tailSectors.push_front(tailSectors.pop_back())
+			return
 	tailSectors.push_front(tailScn.instance())
 	get_node("/root").add_child(tailSectors[0])
 	tailSectors[0].setColor(col)
+	tailSectors[0].tileX = x
+	tailSectors[0].tileY = y
 	tailSectors[0].position.x = x*32
 	tailSectors[0].position.y = y*32
 	while tailSectors.size() > maxSize:
@@ -63,7 +70,8 @@ func _addTile(x, y):
 		tailSectors.pop_back()
 
 func move(x, y):
-	_addTile(tileX, tileY)
+	print("Moving " + progName + " to " + str([x, y]))
+	_addTailSector(tileX, tileY)
 	tileX = x
 	tileY = y
 	position.x = tileX*32
