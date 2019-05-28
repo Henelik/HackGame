@@ -8,7 +8,10 @@ var moveGizmos = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	tileX = round(position.x/32)
+	tileY = round(position.y/32)
+	position.x = tileX*32
+	position.y = tileY*32
 
 func _select():
 	pass
@@ -25,9 +28,9 @@ func _input_event(viewport, event, shape_idx):
 		var gizScene = load("res://Databattle/MoveGizmo.tscn")
 		for i in [[tileX, tileY-1], [tileX, tileY+1], [tileX-1, tileY], [tileX+1, tileY]]:
 			print("Testing " + str(i))
-			if levelTiles.get_cell(i[0], i[1]) > 0:
+			if levelTiles.get_cell(i[0]-1, i[1]-1) > 0:
 				print("Adding tile")
 				moveGizmos.append(gizScene.instance())
-				moveGizmos[-1].position.x = (i[0]+1)*32
-				moveGizmos[-1].position.y = -i[1]*32
+				moveGizmos[-1].position.x = i[0]*32
+				moveGizmos[-1].position.y = i[1]*32
 				get_node("/root").add_child(moveGizmos[-1])
