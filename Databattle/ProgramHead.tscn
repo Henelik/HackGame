@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scripts/programHead.gd" type="Script" id=1]
+[ext_resource path="res://testGrid.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[node name="ProgramHead" type="Area2D"]
+script = ExtResource( 1 )
+levelRef = NodePath("../TileMap")
+
+[node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 0.388235, 0.933333, 0.290196, 1 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 32, 32 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+scale = Vector2( 1.5, 1.5 )
+shape = SubResource( 1 )
+
