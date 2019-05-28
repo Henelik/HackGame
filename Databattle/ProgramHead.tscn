@@ -8,6 +8,7 @@
 [node name="ProgramHead" type="Area2D"]
 script = ExtResource( 1 )
 levelRef = NodePath("../TileMap")
+movesPerTurn = 3
 
 [node name="Sprite" type="Sprite" parent="."]
 modulate = Color( 0.388235, 0.933333, 0.290196, 1 )

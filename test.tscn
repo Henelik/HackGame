@@ -10,8 +10,7 @@
 
 [node name="TileMap" parent="." instance=ExtResource( 2 )]
 modulate = Color( 0.690196, 0.690196, 0.690196, 1 )
-cell_quadrant_size = 16
 
 [node name="ProgramHead" parent="." instance=ExtResource( 3 )]
-position = Vector2( 99.8299, -33.9261 )
+position = Vector2( 99.8298, -33.0236 )
 
