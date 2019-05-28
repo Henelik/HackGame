@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://camera.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Databattle/DatabattleCamera.tscn" type="PackedScene" id=1]
 [ext_resource path="res://testLevel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/programHead.gd" type="Script" id=3]
 [ext_resource path="res://testGrid.png" type="Texture" id=4]
@@ -13,11 +13,14 @@
 
 [node name="TileMap" parent="." instance=ExtResource( 2 )]
 modulate = Color( 0.690196, 0.690196, 0.690196, 1 )
+cell_quadrant_size = 16
 
 [node name="ProgramHead" type="Area2D" parent="."]
 editor/display_folded = true
 script = ExtResource( 3 )
 levelRef = NodePath("../TileMap")
+tileX = 9
+tileY = 4
 
 [node name="Sprite" type="Sprite" parent="ProgramHead"]
 modulate = Color( 0.388235, 0.933333, 0.290196, 1 )
