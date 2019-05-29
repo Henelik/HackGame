@@ -11,8 +11,19 @@
 [node name="TileMap" parent="." instance=ExtResource( 2 )]
 modulate = Color( 0.690196, 0.690196, 0.690196, 1 )
 
-[node name="ProgramHead" parent="." instance=ExtResource( 3 )]
+[node name="ProgramHead" parent="." groups=[
+"Programs",
+] instance=ExtResource( 3 )]
 position = Vector2( 99.8298, -33.0236 )
 movesPerTurn = 10
 maxSize = 4
+
+[node name="ProgramHead2" parent="." groups=[
+"Programs",
+] instance=ExtResource( 3 )]
+position = Vector2( 227.83, -0.0235291 )
+movesPerTurn = 10
+maxSize = 4
+col = Color( 0.290196, 0.541176, 0.933333, 1 )
+owningPlayerId = 1
 

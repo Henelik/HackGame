@@ -6,6 +6,7 @@ export(int) var movesPerTurn
 export(int) var maxSize
 export(String) var progName
 export(Color) var col
+export(int) var owningPlayerId
 
 var tileX
 var tileY
@@ -26,9 +27,14 @@ func _ready():
 	$Sprite.modulate = col
 
 func _select():
-	if selected == true:
+	var cam = get_node("../CamControl")
+	if cam.currentPlayer != owningPlayerId:
 		return
-	selected = true
+	if cam.selectedProgram == self:
+		return
+	if cam.selectedProgram != null:
+		cam.selectedProgram._deselect()
+	cam.selectedProgram = self
 	print("Selecting " + progName)
 	if movesRemaining > 0:
 		var levelTiles = get_node(levelRef)
@@ -45,13 +51,14 @@ func _select():
 				get_node("/root").add_child(moveGizmos[-1])
 
 func _deselect():
-	if selected == false:
-		return
-	selected = false
+	get_node("../CamControl").selectedProgram = null
 	for g in moveGizmos:
 		g.queue_free()
 	moveGizmos = []
-	
+
+func _passiveSelect(): # the current player can't order this program
+	pass
+
 func _addTailSector(x, y):
 	for t in tailSectors: # If there is already a tail sector here
 		if x == t.tileX and y == t.tileY:
@@ -86,3 +93,14 @@ func _input_event(viewport, event, shape_idx):
 	and event.pressed:
 		print("Clicked " + progName)
 		_select()
+
+func damage(amount):
+	for i in range(amount):
+		if tailSectors.size() == 0:
+			die()
+			return
+		tailSectors[-1].queue_free()
+		tailSectors.pop_back()
+
+func die():
+	queue_free()
