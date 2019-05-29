@@ -27,3 +27,4 @@ maxSize = 3
 progName = "Hack"
 col = Color( 0.290196, 0.541176, 0.933333, 1 )
 owningPlayerId = 1
+
