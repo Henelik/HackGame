@@ -22,8 +22,8 @@ maxSize = 4
 "Programs",
 ] instance=ExtResource( 3 )]
 position = Vector2( 227.83, -0.0235291 )
-movesPerTurn = 10
-maxSize = 4
+movesPerTurn = 2
+maxSize = 3
+progName = "Hack"
 col = Color( 0.290196, 0.541176, 0.933333, 1 )
 owningPlayerId = 1
-

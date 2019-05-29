@@ -28,10 +28,6 @@ func _ready():
 
 func _select():
 	var cam = get_node("../CamControl")
-	if cam.currentPlayer != owningPlayerId:
-		return
-	if cam.selectedProgram == self:
-		return
 	if cam.selectedProgram != null:
 		cam.selectedProgram._deselect()
 	cam.selectedProgram = self
@@ -78,6 +74,9 @@ func _addTailSector(x, y):
 
 func move(x, y):
 	print("Moving " + progName + " to " + str([x, y]))
+	for t in tailSectors:
+		if x == t.tileX and y == t.tileY:
+			tailSectors.erase(t)
 	_addTailSector(tileX, tileY)
 	tileX = x
 	tileY = y
@@ -92,7 +91,13 @@ func _input_event(viewport, event, shape_idx):
 	and event.button_index == BUTTON_LEFT\
 	and event.pressed:
 		print("Clicked " + progName)
-		_select()
+		var cam = get_node("../CamControl")
+		if cam.currentPlayer != owningPlayerId or cam.playerTypes[owningPlayerId] != 0:
+			_passiveSelect()
+		elif cam.selectedProgram == self:
+			_deselect()
+		else:
+			_select()
 
 func damage(amount):
 	for i in range(amount):
