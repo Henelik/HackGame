@@ -11,9 +11,10 @@ var bMap
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	currentPlayer = 0
+	currentPlayer = -1
 	bMap = get_node("../BattleMap")
 	_populateProgArray()
+	_nextTurn()
 
 func _populateProgArray():
 	var progList = get_tree().get_nodes_in_group("Programs")

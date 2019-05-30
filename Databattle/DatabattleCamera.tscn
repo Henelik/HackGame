@@ -2,7 +2,6 @@
 
 [ext_resource path="res://Scripts/CameraController.gd" type="Script" id=1]
 
-
 [node name="CamControl" type="KinematicBody2D"]
 collision_layer = 0
 collision_mask = 0
@@ -16,10 +15,40 @@ drag_margin_top = 0.0
 drag_margin_right = 0.0
 drag_margin_bottom = 0.0
 
-[node name="EndTurnButton" type="Button" parent="."]
-margin_left = 415.791
-margin_top = 251.58
-margin_right = 479.791
-margin_bottom = 271.58
+[node name="EndTurnButton" type="Button" parent="Camera2D"]
+margin_left = 427.37
+margin_top = 258.948
+margin_right = 494.37
+margin_bottom = 278.948
 text = "End Turn"
-[connection signal="pressed" from="EndTurnButton" to="." method="_on_EndTurnButton_pressed"]
+
+[node name="Container" type="GridContainer" parent="Camera2D"]
+margin_left = -488.895
+margin_top = -238.263
+margin_right = -344.895
+margin_bottom = 149.737
+
+[node name="ActionButton1" type="Button" parent="Camera2D/Container"]
+margin_right = 144.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="ActionButton2" type="Button" parent="Camera2D/Container"]
+margin_top = 24.0
+margin_right = 144.0
+margin_bottom = 44.0
+size_flags_horizontal = 3
+
+[node name="ActionButton3" type="Button" parent="Camera2D/Container"]
+margin_top = 48.0
+margin_right = 144.0
+margin_bottom = 68.0
+size_flags_horizontal = 3
+
+[node name="ActionButton4" type="Button" parent="Camera2D/Container"]
+margin_top = 72.0
+margin_right = 144.0
+margin_bottom = 92.0
+size_flags_horizontal = 3
+
+[connection signal="pressed" from="Camera2D/EndTurnButton" to="." method="_on_EndTurnButton_pressed"]

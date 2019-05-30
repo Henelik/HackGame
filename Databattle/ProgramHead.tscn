@@ -8,7 +8,6 @@
 [node name="ProgramHead" type="Area2D"]
 z_index = 1
 script = ExtResource( 1 )
-levelRef = NodePath("../TileMap")
 movesPerTurn = 3
 maxSize = 2
 progName = "Pick"

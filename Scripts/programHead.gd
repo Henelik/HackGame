@@ -1,14 +1,15 @@
 extends Area2D
 
 # Declare member variables here.
-export(NodePath) var levelRef
-export(int) var movesPerTurn
-export(int) var apPerTurn
-export(int) var maxSize
+export(int) var movesPerTurn = 2
+export(int) var apPerTurn = 1
+export(int) var maxSize = 3
 export(String) var progName
 export(Color) var col
 export(int) var owningPlayerId
+export(Array, String) var abilityRefs
 
+var levelRef = "../BattleMap"
 var tileX
 var tileY
 var moveGizmos = []
@@ -17,6 +18,8 @@ var apLeft
 var selected
 var tailSectors = []
 var tailScn = load("res://Databattle/TailSector.tscn")
+var abilities = []
+var turnEnded = false # true if this program has ended its turn
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -26,9 +29,13 @@ func _ready():
 	position.y = tileY*32
 	selected = false
 	$Sprite.modulate = col
-	newTurn()
+	for a in abilityRefs: # load and instantiate the ability nodes from the references
+		abilities.append(load(a).instance())
 
 func _select():
+	if turnEnded == true:
+		_passiveSelect()
+		return
 	var cam = get_node("../CamControl")
 	if cam.selectedProgram != null:
 		cam.selectedProgram._deselect()
@@ -57,7 +64,7 @@ func _deselect():
 	moveGizmos = []
 
 func _passiveSelect(): # the current player doesn't control this program
-	pass
+	print("Passive selecting " + progName)
 
 func _addTailSector(x, y):
 	for t in tailSectors: # If there is already a tail sector here

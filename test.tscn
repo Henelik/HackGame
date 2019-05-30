@@ -12,7 +12,6 @@
 "Programs",
 ] instance=ExtResource( 2 )]
 position = Vector2( 62.7798, -66.2736 )
-levelRef = NodePath("../BattleMap")
 movesPerTurn = 5
 maxSize = 4
 
@@ -20,7 +19,6 @@ maxSize = 4
 "Programs",
 ] instance=ExtResource( 2 )]
 position = Vector2( 0.0796509, 127.527 )
-levelRef = NodePath("../BattleMap")
 movesPerTurn = 5
 maxSize = 4
 
@@ -28,7 +26,6 @@ maxSize = 4
 "Programs",
 ] instance=ExtResource( 2 )]
 position = Vector2( 227.83, -0.0235291 )
-levelRef = NodePath("../BattleMap")
 movesPerTurn = 2
 maxSize = 3
 progName = "Hack"
