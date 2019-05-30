@@ -23,12 +23,12 @@ func findPath(a : Vector2, b : Vector2, distance = 0):
 	var cameFrom = {}
 	var closed = []
 	var open = [a]
-	var gScore = {a:0}
-	var fScore = {a:1000000}
+	var gScore = {a:0} # distance from each tile to a
+	var fScore = {a:1000000} # approximate number of moves it takes to get from a to b through each tile
 	var current
 	while not open.empty():
 		current = open[0]
-		for o in open:
+		for o in open: # find the tile in the open set with the lowest fScore
 			if fScore.has(o) and fScore[o] < fScore[current]:
 				current = o
 		if fScore[current] == gScore[current] + distance:
@@ -49,6 +49,42 @@ func findPath(a : Vector2, b : Vector2, distance = 0):
 			cameFrom[n] = current
 			gScore[n] = gScoreTemp
 			fScore[n] = gScoreTemp + abs(n.x-b.x) + abs(n.y-b.y)
+
+func findPathGroup(a : Vector2, b : Array, distance = 0): # find the shortest path to any tile in b
+	if moveMap == null:
+		_updateMoveMap(null)
+	var cameFrom = {}
+	var closed = []
+	var open = [a]
+	var gScore = {a:0} # distance from each tile to a
+	var fScore = {a:1000000} # approximate number of moves it takes to get from a to b through each tile
+	var current
+	while not open.empty():
+		current = open[0]
+		for o in open: # find the tile in the open set with the lowest fScore
+			if fScore.has(o) and fScore[o] < fScore[current]:
+				current = o
+		if fScore[current] == gScore[current] + distance: # if we found a tile the appropriate distance from the target
+			return _reconstructPath(cameFrom, current)
+		open.erase(current)
+		closed.append(current)
+		var gScoreTemp = gScore[current]+1
+		for n in [Vector2(current.x+1, current.y), Vector2(current.x, current.y-1), Vector2(current.x-1, current.y), Vector2(current.x, current.y+1)]:
+			if not moveMap.has(n):
+				continue
+			if closed.has(n):
+				continue
+			if not open.has(n): # this is a new tile
+				open.append(n)
+			elif gScoreTemp >= gScore[n]:
+				continue
+			# this is the new best path
+			cameFrom[n] = current
+			gScore[n] = gScoreTemp
+			for i in b:
+				var temp = gScoreTemp + abs(n.x-i.x) + abs(n.y-i.y)
+				if not fScore.has(n) or temp < fScore[n]:
+					fScore[n] = temp
 
 func _reconstructPath(cameFrom, current):
 	var off = Vector2(1, 1)

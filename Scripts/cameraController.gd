@@ -7,10 +7,12 @@ export(Array, int) var playerTypes # 0 is local, 1 is AI, 2 is online
 var currentPlayer # an index of the array
 var selectedProgram
 var progs = []
+var bMap
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	currentPlayer = 0
+	bMap = get_node("../BattleMap")
 	_populateProgArray()
 
 func _populateProgArray():
@@ -47,20 +49,16 @@ func _nextTurn():
 
 func _AITurn():
 	for p in progs[currentPlayer]:
-		var shortestPath = null
-		get_node("../BattleMap")._updateMoveMap(p)
-		for o in progs[0]:
-			if shortestPath == null:
-				shortestPath = get_node("../BattleMap").findPath(Vector2(p.tileX, p.tileY), Vector2(o.tileX, o.tileY), 1)
-			var temp = get_node("../BattleMap").findPath(Vector2(p.tileX, p.tileY), Vector2(o.tileX, o.tileY), 1)
-			if temp == null:
+		var targets = []
+		for i in range(playerTypes.size()): # create the list of target tiles
+			if i == currentPlayer: # don't add this player's programs to the targets
 				continue
-			if temp.size() < shortestPath.size():
-				shortestPath = temp
-		if shortestPath == null:
-			print("no path found")
-			continue
-		p.movePath(shortestPath)
+			for o in progs[i]:
+				targets.append(Vector2(o.tileX, o.tileY)) # add the program heads
+				for t in o.tailSectors:
+					targets.append(Vector2(t.tileX, t.tileY)) # and tails
+		bMap._updateMoveMap(p)
+		p.movePath(bMap.findPathGroup(Vector2(p.tileX, p.tileY), targets, 1))
 	_nextTurn()
 
 func currentPlayerType():

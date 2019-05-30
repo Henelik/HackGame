@@ -16,6 +16,14 @@ levelRef = NodePath("../BattleMap")
 movesPerTurn = 5
 maxSize = 4
 
+[node name="ProgramHead3" parent="." groups=[
+"Programs",
+] instance=ExtResource( 2 )]
+position = Vector2( 0.0796509, 127.527 )
+levelRef = NodePath("../BattleMap")
+movesPerTurn = 5
+maxSize = 4
+
 [node name="ProgramHead2" parent="." groups=[
 "Programs",
 ] instance=ExtResource( 2 )]
