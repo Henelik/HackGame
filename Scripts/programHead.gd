@@ -32,8 +32,8 @@ func _select():
 		cam.selectedProgram._deselect()
 	cam.selectedProgram = self
 	print("Selecting " + progName)
+	get_node(levelRef)._updateMoveMap(self)
 	if movesRemaining > 0:
-		var levelTiles = get_node(levelRef)
 		var gizScn = load("res://Databattle/Gizmo.tscn")
 		for x in range(tileX-movesRemaining, tileX+movesRemaining+1):
 			for y in range(tileY-movesRemaining, tileY+movesRemaining+1):
@@ -54,7 +54,7 @@ func _deselect():
 		g.queue_free()
 	moveGizmos = []
 
-func _passiveSelect(): # the current player can't order this program
+func _passiveSelect(): # the current player doesn't control this program
 	pass
 
 func _addTailSector(x, y):
@@ -91,18 +91,9 @@ func gizmoCallback(x, y):
 		multiMove(x, y)
 	
 func multiMove(x, y):
-	if x > tileX:
-		for i in range(tileX+1, x+1):
-			move(i, tileY)
-	else:
-		for i in range(tileX-1, x-1, -1):
-			move(i, tileY)
-	if y > tileY:
-		for j in range(tileY+1, y+1):
-			move(tileX, j)
-	else:
-		for j in range(tileY-1, y-1, -1):
-			move(tileX, j)
+	var path = get_node(levelRef).findPath(Vector2(tileX, tileY), Vector2(x, y))
+	for p in path:
+		move(p.x, p.y)
 	_deselect()
 	_select()
 

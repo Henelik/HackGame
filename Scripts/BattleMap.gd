@@ -5,9 +5,11 @@ var moveMap
 func _ready():
 	pass
 
-func _updateMoveMap():
+func _updateMoveMap(ignoreProg):
 	moveMap = get_used_cells()
 	for p in get_tree().get_nodes_in_group("Programs"):
+		if p == ignoreProg:
+			continue
 		if Vector2(p.tileX, p.tileY) in moveMap:
 			moveMap.erase(Vector2(p.tileX, p.tileY))
 		for t in p.tailSectors:
@@ -15,7 +17,6 @@ func _updateMoveMap():
 				moveMap.erase(Vector2(t.tileX, t.tileY))
 
 func findPath(a : Vector2, b : Vector2):
-	_updateMoveMap()
 	var cameFrom = {}
 	var closed = []
 	var open = [a]
@@ -52,6 +53,7 @@ func _reconstructPath(cameFrom, current):
 	while current in cameFrom.keys():
 		current = cameFrom[current]
 		path.push_front(current)
+	path.remove(0) # the path includes the program head's location, so we need to remove it
 	return path
 
 func getProgramAtPoint(p):
