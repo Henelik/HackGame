@@ -9,6 +9,7 @@ func _updateMoveMap(ignoreProg):
 	moveMap = get_used_cells()
 	for p in get_tree().get_nodes_in_group("Programs"):
 		if p == ignoreProg:
+			print("ignoring " + ignoreProg.progName)
 			continue
 		if Vector2(p.tileX, p.tileY) in moveMap:
 			moveMap.erase(Vector2(p.tileX, p.tileY))
@@ -16,19 +17,21 @@ func _updateMoveMap(ignoreProg):
 			if Vector2(t.tileX, t.tileY) in moveMap:
 				moveMap.erase(Vector2(t.tileX, t.tileY))
 
-func findPath(a : Vector2, b : Vector2):
+func findPath(a : Vector2, b : Vector2, distance = 0):
+	if moveMap == null:
+		_updateMoveMap(null)
 	var cameFrom = {}
 	var closed = []
 	var open = [a]
 	var gScore = {a:0}
-	var fScore = {}
+	var fScore = {a:1000000}
 	var current
 	while not open.empty():
 		current = open[0]
 		for o in open:
 			if fScore.has(o) and fScore[o] < fScore[current]:
 				current = o
-		if current == b:
+		if fScore[current] == gScore[current] + distance:
 			return _reconstructPath(cameFrom, current)
 		open.erase(current)
 		closed.append(current)

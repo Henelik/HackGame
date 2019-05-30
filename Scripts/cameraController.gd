@@ -34,9 +34,35 @@ func _on_EndTurnButton_pressed():
 	_nextTurn()
 	
 func _nextTurn():
+	# deselect the currently selected program
+	if selectedProgram != null:
+		selectedProgram._deselect()
+		selectedProgram = null
 	currentPlayer = (currentPlayer+1)%playerTypes.size()
+	for p in progs[currentPlayer]:
+		p.newTurn()
 	print("It is now player " + str(currentPlayer) + "'s turn.")
-	
+	if playerTypes[currentPlayer] == 1:
+		_AITurn()
+
+func _AITurn():
+	for p in progs[currentPlayer]:
+		var shortestPath = null
+		get_node("../BattleMap")._updateMoveMap(p)
+		for o in progs[0]:
+			if shortestPath == null:
+				shortestPath = get_node("../BattleMap").findPath(Vector2(p.tileX, p.tileY), Vector2(o.tileX, o.tileY), 1)
+			var temp = get_node("../BattleMap").findPath(Vector2(p.tileX, p.tileY), Vector2(o.tileX, o.tileY), 1)
+			if temp == null:
+				continue
+			if temp.size() < shortestPath.size():
+				shortestPath = temp
+		if shortestPath == null:
+			print("no path found")
+			continue
+		p.movePath(shortestPath)
+	_nextTurn()
+
 func currentPlayerType():
 	return playerTypes[currentPlayer]
 	
