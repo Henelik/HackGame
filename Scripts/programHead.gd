@@ -15,7 +15,6 @@ var movesRemaining
 var selected
 var tailSectors = []
 var tailScn = load("res://Databattle/TailSector.tscn")
-var pf = AStar.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -38,14 +37,16 @@ func _select():
 		var gizScn = load("res://Databattle/Gizmo.tscn")
 		for x in range(tileX-movesRemaining, tileX+movesRemaining+1):
 			for y in range(tileY-movesRemaining, tileY+movesRemaining+1):
-				if levelTiles.get_cell(x-1, y-1) > 0 and abs(x-tileX)+abs(y-tileY) <= movesRemaining and not (x == tileX and y == tileY):
-					moveGizmos.append(gizScn.instance())
-					moveGizmos[-1].position.x = x*32
-					moveGizmos[-1].position.y = y*32
-					moveGizmos[-1].tileX = x
-					moveGizmos[-1].tileY = y
-					moveGizmos[-1].owningNode = self
-					get_node("/root").add_child(moveGizmos[-1])
+				if abs(x-tileX)+abs(y-tileY) <= movesRemaining and not (x == tileX and y == tileY):
+					var path = get_node(levelRef).findPath(Vector2(tileX, tileY), Vector2(x, y))
+					if path != null and path.size() <= movesRemaining:
+						moveGizmos.append(gizScn.instance())
+						moveGizmos[-1].position.x = x*32
+						moveGizmos[-1].position.y = y*32
+						moveGizmos[-1].tileX = x
+						moveGizmos[-1].tileY = y
+						moveGizmos[-1].owningNode = self
+						get_node("/root").add_child(moveGizmos[-1])
 
 func _deselect():
 	get_node("../CamControl").selectedProgram = null
@@ -86,7 +87,8 @@ func move(x, y):
 	movesRemaining -= 1
 
 func gizmoCallback(x, y):
-	multiMove(x, y)
+	if get_node("../CamControl").currentPlayerType() == 0:
+		multiMove(x, y)
 	
 func multiMove(x, y):
 	if x > tileX:

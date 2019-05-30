@@ -37,3 +37,6 @@ func _nextTurn():
 	currentPlayer = (currentPlayer+1)%playerTypes.size()
 	print("It is now player " + str(currentPlayer) + "'s turn.")
 	
+func currentPlayerType():
+	return playerTypes[currentPlayer]
+	

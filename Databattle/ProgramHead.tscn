@@ -3,7 +3,6 @@
 [ext_resource path="res://Scripts/ProgramHead.gd" type="Script" id=1]
 [ext_resource path="res://testGrid.png" type="Texture" id=2]
 
-
 [sub_resource type="RectangleShape2D" id=1]
 
 [node name="ProgramHead" type="Area2D"]
@@ -24,3 +23,4 @@ region_rect = Rect2( 0, 0, 32, 32 )
 visible = false
 scale = Vector2( 1.5, 1.5 )
 shape = SubResource( 1 )
+

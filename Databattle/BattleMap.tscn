@@ -1,10 +1,11 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://battle_tileset.tres" type="TileSet" id=1]
-[ext_resource path="res://Scripts/LevelTiles.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/BattleMap.gd" type="Script" id=2]
 
-
-[node name="TileMap" type="TileMap"]
+[node name="BattleMap" type="TileMap"]
+modulate = Color( 0.764706, 0.764706, 0.764706, 1 )
+position = Vector2( -32, -32 )
 z_index = -1
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 32, 32 )
