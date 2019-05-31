@@ -94,6 +94,11 @@ func _reconstructPath(cameFrom, current):
 		path.push_front(current)
 	path.remove(0) # the path includes the program head's location, so we need to remove it
 	return path
+	
+func findInRange(start: Vector2, targets, r: int):
+	for t in targets:
+		if abs(t.x-start.x)+abs(t.y-start.y) <= r:
+			return t
 
 func getProgramAtPoint(p):
 	pass

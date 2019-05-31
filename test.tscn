@@ -4,7 +4,7 @@
 [ext_resource path="res://Databattle/ProgramHead.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Databattle/BattleMap.tscn" type="PackedScene" id=3]
 
-[node name="Node2D" type="Node2D"]
+[node name="Battle" type="Node2D"]
 
 [node name="CamControl" parent="." instance=ExtResource( 1 )]
 
@@ -14,6 +14,7 @@
 position = Vector2( 62.7798, -66.2736 )
 movesPerTurn = 5
 maxSize = 4
+abilityRefs = [ "res://Databattle/Abilities/AttackAbility.tscn" ]
 
 [node name="ProgramHead3" parent="." groups=[
 "Programs",
@@ -31,6 +32,7 @@ maxSize = 3
 progName = "Hack"
 col = Color( 0.290196, 0.541176, 0.933333, 1 )
 owningPlayerId = 1
+abilityRefs = [ "res://Databattle/Abilities/AttackAbility.tscn" ]
 
 [node name="BattleMap" parent="." instance=ExtResource( 3 )]
 

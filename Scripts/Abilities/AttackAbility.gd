@@ -7,6 +7,7 @@ func _ready():
 
 func fireProgram(target):
 	target.damage(damage)
+	_postFire()
 	
 func fireTile(tile: Vector2):
 	pass

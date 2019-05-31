@@ -6,6 +6,7 @@ var velocity = Vector2()
 export(Array, int) var playerTypes # 0 is local, 1 is AI, 2 is online
 var currentPlayer # an index of the array
 var selectedProgram
+var selectedAbility
 var progs = []
 var bMap
 
@@ -37,10 +38,7 @@ func _on_EndTurnButton_pressed():
 	_nextTurn()
 	
 func _nextTurn():
-	# deselect the currently selected program
-	if selectedProgram != null:
-		selectedProgram._deselect()
-		selectedProgram = null
+	deselectProgram()
 	currentPlayer = (currentPlayer+1)%playerTypes.size()
 	for p in progs[currentPlayer]:
 		p.newTurn()
@@ -55,17 +53,32 @@ func selectProgram(prog):
 	if selectedProgram != null:
 		deselectProgram()
 	selectedProgram = prog
-	if selectedProgram in progs[currentPlayer] and playerTypes[currentPlayer] == 0:
+	get_node("Camera2D/ActionButtons").visible = true
+	# add abilities to actionButtons
+	for a in range(prog.abilities.size()):
+		if a < 4:
+			get_node("Camera2D/ActionButtons/ActionButton" + str(a+1)).text = prog.abilities[a].abilityName
+	if selectedProgram in progs[currentPlayer] and playerTypes[currentPlayer] == 0 and not prog.turnEnded:
 		prog._select()
 	else:
 		prog._passiveSelect()
 	
 func deselectProgram():
-	selectedProgram._deselect()
-	selectedProgram = null
+	if selectedProgram != null:
+		selectedProgram._deselect()
+		selectedProgram = null
+		get_node("Camera2D/ActionButtons").visible = false
+		get_node("Camera2D/ActionButtons/ActionButton1").text = ""
+		get_node("Camera2D/ActionButtons/ActionButton2").text = ""
+		get_node("Camera2D/ActionButtons/ActionButton3").text = ""
+		get_node("Camera2D/ActionButtons/ActionButton4").text = ""
 
 func _AITurn():
 	for p in progs[currentPlayer]:
+		var abRange = 1
+		if not p.abilities.empty():
+			if p.abilities[0].maxRange > abRange:
+				abRange = p.abilities[0].maxRange
 		var targets = []
 		for i in range(playerTypes.size()): # create the list of target tiles
 			if i == currentPlayer: # don't add this player's programs to the targets
@@ -76,23 +89,39 @@ func _AITurn():
 					targets.append(Vector2(t.tileX, t.tileY)) # and tails
 		bMap._updateMoveMap(p)
 		p.movePath(bMap.findPathGroup(Vector2(p.tileX, p.tileY), targets, 1))
+		if not p.abilities.empty():
+			var t = bMap.findInRange(Vector2(p.tileX, p.tileY), targets, p.abilities[0].maxRange)
+			if t != null:
+				p.abilities[0].gizmoCallback(t.x, t.y)
 	_nextTurn()
 
 func currentPlayerType():
 	return playerTypes[currentPlayer]
-	
 
 func _on_ActionButton1_pressed():
-	pass # Replace with function body.
-
+	deselectAbility()
+	selectAbility(0)
 
 func _on_ActionButton2_pressed():
-	pass # Replace with function body.
-
+	deselectAbility()
+	selectAbility(1)
 
 func _on_ActionButton3_pressed():
-	pass # Replace with function body.
-
+	deselectAbility()
+	selectAbility(2)
 
 func _on_ActionButton4_pressed():
-	pass # Replace with function body.
+	deselectAbility()
+	selectAbility(3)
+	
+func selectAbility(n):
+	if selectedProgram != null:
+		if selectedProgram.abilities.size() > n and not selectedProgram.turnEnded:
+			selectedProgram.abilities[n]._select()
+			selectedAbility = selectedProgram.abilities[n]
+			selectedProgram._hideMoveGizmos()
+
+func deselectAbility():
+	if selectedAbility != null:
+		selectedAbility._deselect()
+		selectedAbility = null

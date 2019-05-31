@@ -22,37 +22,38 @@ margin_right = 494.37
 margin_bottom = 278.948
 text = "End Turn"
 
-[node name="Container" type="GridContainer" parent="Camera2D"]
+[node name="ActionButtons" type="GridContainer" parent="Camera2D"]
+visible = false
 margin_left = -488.895
 margin_top = -238.263
 margin_right = -344.895
 margin_bottom = 149.737
 
-[node name="ActionButton1" type="Button" parent="Camera2D/Container"]
+[node name="ActionButton1" type="Button" parent="Camera2D/ActionButtons"]
 margin_right = 144.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 
-[node name="ActionButton2" type="Button" parent="Camera2D/Container"]
+[node name="ActionButton2" type="Button" parent="Camera2D/ActionButtons"]
 margin_top = 24.0
 margin_right = 144.0
 margin_bottom = 44.0
 size_flags_horizontal = 3
 
-[node name="ActionButton3" type="Button" parent="Camera2D/Container"]
+[node name="ActionButton3" type="Button" parent="Camera2D/ActionButtons"]
 margin_top = 48.0
 margin_right = 144.0
 margin_bottom = 68.0
 size_flags_horizontal = 3
 
-[node name="ActionButton4" type="Button" parent="Camera2D/Container"]
+[node name="ActionButton4" type="Button" parent="Camera2D/ActionButtons"]
 margin_top = 72.0
 margin_right = 144.0
 margin_bottom = 92.0
 size_flags_horizontal = 3
 
 [connection signal="pressed" from="Camera2D/EndTurnButton" to="." method="_on_EndTurnButton_pressed"]
-[connection signal="pressed" from="Camera2D/Container/ActionButton1" to="." method="_on_ActionButton1_pressed"]
-[connection signal="pressed" from="Camera2D/Container/ActionButton2" to="." method="_on_ActionButton2_pressed"]
-[connection signal="pressed" from="Camera2D/Container/ActionButton3" to="." method="_on_ActionButton3_pressed"]
-[connection signal="pressed" from="Camera2D/Container/ActionButton4" to="." method="_on_ActionButton4_pressed"]
+[connection signal="pressed" from="Camera2D/ActionButtons/ActionButton1" to="." method="_on_ActionButton1_pressed"]
+[connection signal="pressed" from="Camera2D/ActionButtons/ActionButton2" to="." method="_on_ActionButton2_pressed"]
+[connection signal="pressed" from="Camera2D/ActionButtons/ActionButton3" to="." method="_on_ActionButton3_pressed"]
+[connection signal="pressed" from="Camera2D/ActionButtons/ActionButton4" to="." method="_on_ActionButton4_pressed"]

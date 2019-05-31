@@ -20,10 +20,19 @@ func checkRange(target: Vector2):
 	return false
 
 func _select():
+	print("Selecting " + abilityName + " ability")
+	_showGizmos()
+
+func _deselect():
+	print("Deselecting " + abilityName + " ability")
+	_hideGizmos()
+	
+func _showGizmos():
 	var gizScn = load("res://Databattle/Gizmo.tscn")
-	for x in range(tileX-maxRange, tileX+maxRange):
-		for y in range(tileY-maxRange, tileY+maxRange):
+	for x in range(tileX-maxRange, tileX+maxRange+1):
+		for y in range(tileY-maxRange, tileY+maxRange+1):
 			if abs(x-tileX)+abs(y-tileY) <= maxRange and not (x == tileX and y == tileY):
+				print("spawning gizmo")
 				gizmos.append(gizScn.instance())
 				gizmos[-1].position.x = x*32
 				gizmos[-1].position.y = y*32
@@ -31,14 +40,19 @@ func _select():
 				gizmos[-1].tileY = y
 				gizmos[-1].owningNode = self
 				gizmos[-1].setColor(gizmoColor)
-
-func _deselect():
+				get_tree().get_root().add_child(gizmos[-1])
+	
+func _hideGizmos():
 	for g in gizmos:
 		g.queue_free()
 	gizmos = []
+	
+func _postFire():
+	get_parent().turnEnded = true
+	get_tree().get_root().get_node("/root/Battle/CamControl").deselectAbility()
 
 func findTarget(tile: Vector2):
-	var cam = get_node("../CamControl")
+	var cam = get_tree().get_root().get_node("/root/Battle/CamControl")
 	for player in cam.progs:
 		for p in player:
 			if Vector2(p.tileX, p.tileY) == tile:

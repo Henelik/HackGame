@@ -31,6 +31,9 @@ func _ready():
 	$Sprite.modulate = col
 	for a in abilityRefs: # load and instantiate the ability nodes from the references
 		abilities.append(load(a).instance())
+		add_child(abilities[-1])
+		abilities[-1].tileX = tileX
+		abilities[-1].tileY = tileY
 
 func _input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton\
@@ -44,6 +47,17 @@ func _select():
 		_passiveSelect()
 		return
 	print("Selecting " + progName)
+	_showMoveGizmos()
+
+func _deselect():
+	_hideMoveGizmos()
+	for a in abilities:
+		a._deselect()
+
+func _passiveSelect(): # the current player doesn't control this program
+	print("Passive selecting " + progName)
+	
+func _showMoveGizmos():
 	get_node(levelRef)._updateMoveMap(self)
 	if movesLeft > 0:
 		var gizScn = load("res://Databattle/Gizmo.tscn")
@@ -59,14 +73,11 @@ func _select():
 						moveGizmos[-1].tileY = y
 						moveGizmos[-1].owningNode = self
 						get_node("/root").add_child(moveGizmos[-1])
-
-func _deselect():
+	
+func _hideMoveGizmos():
 	for g in moveGizmos:
 		g.queue_free()
 	moveGizmos = []
-
-func _passiveSelect(): # the current player doesn't control this program
-	print("Passive selecting " + progName)
 
 func _addTailSector(x, y):
 	for t in tailSectors: # If there is already a tail sector here
@@ -97,6 +108,10 @@ func move(x, y):
 	position.x = tileX*32
 	position.y = tileY*32
 	movesLeft -= 1
+	# update ability positions
+	for a in abilities:
+		a.tileX = tileX
+		a.tileY = tileY
 
 func gizmoCallback(x, y):
 	if get_node("../CamControl").currentPlayerType() == 0:
