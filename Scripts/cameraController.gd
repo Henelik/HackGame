@@ -47,6 +47,22 @@ func _nextTurn():
 	print("It is now player " + str(currentPlayer) + "'s turn.")
 	if playerTypes[currentPlayer] == 1:
 		_AITurn()
+		
+func selectProgram(prog):
+	if selectedProgram == prog:
+		deselectProgram()
+		return
+	if selectedProgram != null:
+		deselectProgram()
+	selectedProgram = prog
+	if selectedProgram in progs[currentPlayer] and playerTypes[currentPlayer] == 0:
+		prog._select()
+	else:
+		prog._passiveSelect()
+	
+func deselectProgram():
+	selectedProgram._deselect()
+	selectedProgram = null
 
 func _AITurn():
 	for p in progs[currentPlayer]:
@@ -65,3 +81,18 @@ func _AITurn():
 func currentPlayerType():
 	return playerTypes[currentPlayer]
 	
+
+func _on_ActionButton1_pressed():
+	pass # Replace with function body.
+
+
+func _on_ActionButton2_pressed():
+	pass # Replace with function body.
+
+
+func _on_ActionButton3_pressed():
+	pass # Replace with function body.
+
+
+func _on_ActionButton4_pressed():
+	pass # Replace with function body.

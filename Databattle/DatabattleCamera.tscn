@@ -52,3 +52,7 @@ margin_bottom = 92.0
 size_flags_horizontal = 3
 
 [connection signal="pressed" from="Camera2D/EndTurnButton" to="." method="_on_EndTurnButton_pressed"]
+[connection signal="pressed" from="Camera2D/Container/ActionButton1" to="." method="_on_ActionButton1_pressed"]
+[connection signal="pressed" from="Camera2D/Container/ActionButton2" to="." method="_on_ActionButton2_pressed"]
+[connection signal="pressed" from="Camera2D/Container/ActionButton3" to="." method="_on_ActionButton3_pressed"]
+[connection signal="pressed" from="Camera2D/Container/ActionButton4" to="." method="_on_ActionButton4_pressed"]

@@ -32,14 +32,17 @@ func _ready():
 	for a in abilityRefs: # load and instantiate the ability nodes from the references
 		abilities.append(load(a).instance())
 
+func _input_event(viewport, event, shape_idx):
+	if event is InputEventMouseButton\
+	and event.button_index == BUTTON_LEFT\
+	and event.pressed:
+		print("Clicked " + progName)
+		get_node("../CamControl").selectProgram(self)
+
 func _select():
 	if turnEnded == true:
 		_passiveSelect()
 		return
-	var cam = get_node("../CamControl")
-	if cam.selectedProgram != null:
-		cam.selectedProgram._deselect()
-	cam.selectedProgram = self
 	print("Selecting " + progName)
 	get_node(levelRef)._updateMoveMap(self)
 	if movesLeft > 0:
@@ -58,7 +61,6 @@ func _select():
 						get_node("/root").add_child(moveGizmos[-1])
 
 func _deselect():
-	get_node("../CamControl").selectedProgram = null
 	for g in moveGizmos:
 		g.queue_free()
 	moveGizmos = []
@@ -116,19 +118,6 @@ func movePath(path):
 func newTurn(): # reset moves and ap
 	movesLeft = movesPerTurn
 	apLeft = apPerTurn
-
-func _input_event(viewport, event, shape_idx):
-	if event is InputEventMouseButton\
-	and event.button_index == BUTTON_LEFT\
-	and event.pressed:
-		print("Clicked " + progName)
-		var cam = get_node("../CamControl")
-		if cam.currentPlayer != owningPlayerId or cam.playerTypes[owningPlayerId] != 0:
-			_passiveSelect()
-		elif cam.selectedProgram == self:
-			_deselect()
-		else:
-			_select()
 
 func damage(amount):
 	for i in range(amount):
