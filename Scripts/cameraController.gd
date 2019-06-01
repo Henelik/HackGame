@@ -9,6 +9,7 @@ var selectedProgram
 var selectedAbility
 var progs = []
 var bMap
+var programMoving = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -44,6 +45,7 @@ func _nextTurn():
 		p.newTurn()
 	print("It is now player " + str(currentPlayer) + "'s turn.")
 	if playerTypes[currentPlayer] == 1:
+		yield(get_tree().create_timer(.5),"timeout")
 		_AITurn()
 		
 func selectProgram(prog):
@@ -93,8 +95,11 @@ func _AITurn():
 				for t in o.tailSectors:
 					targets.append(Vector2(t.tileX, t.tileY)) # and tails
 		bMap._updateMoveMap(p)
-		p.movePath(bMap.findPathGroup(Vector2(p.tileX, p.tileY), targets, 1))
+		var path = bMap.findPathGroup(Vector2(p.tileX, p.tileY), targets, 1)
+		if path != null:
+			yield(p.movePath(path), "completed")
 		if not p.abilities.empty():
+			yield(get_tree().create_timer(.25),"timeout")
 			var t = bMap.findInRange(Vector2(p.tileX, p.tileY), targets, p.abilities[0].maxRange)
 			if t != null:
 				p.abilities[0].gizmoCallback(t.x, t.y)

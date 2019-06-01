@@ -20,6 +20,7 @@ var tailSectors = []
 var tailScn = load("res://Databattle/TailSector.tscn")
 var abilities = []
 var turnEnded = false # true if this program has ended its turn
+onready var cam = get_node("/root/Battle/CamControl")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -40,7 +41,7 @@ func _input_event(viewport, event, shape_idx):
 	and event.button_index == BUTTON_LEFT\
 	and event.pressed:
 		print("Clicked " + progName)
-		get_node("../CamControl").selectProgram(self)
+		cam.selectProgram(self)
 
 func _select():
 	print("Selecting " + progName)
@@ -70,8 +71,10 @@ func _showMoveGizmos():
 						get_node("/root").add_child(moveGizmos[-1])
 	
 func _hideMoveGizmos():
+	print("hiding gizmos")
 	for g in moveGizmos:
 		g.queue_free()
+		get_node("/root").remove_child(g)
 	moveGizmos = []
 
 func _addTailSector(x, y):
@@ -93,6 +96,7 @@ func _addTailSector(x, y):
 
 func move(x, y):
 	print("Moving " + progName + " to " + str([x, y]))
+	get_node("moveSoundPlayer").play()
 	for t in tailSectors:
 		if x == t.tileX and y == t.tileY:
 			t.queue_free()
@@ -112,21 +116,26 @@ func move(x, y):
 
 func gizmoCallback(x, y):
 	_hideMoveGizmos()
-	if get_node("/root/Battle/CamControl").currentPlayerType() == 0:
-		multiMove(x, y)
-	if movesLeft != 0:
+	if cam.currentPlayerType() == 0:
+		yield(multiMove(x, y), "completed")
+	if movesLeft > 0:
 		_showMoveGizmos()
 	
 func multiMove(x, y):
 	var path = get_node(levelRef).findPath(Vector2(tileX, tileY), Vector2(x, y))
-	for p in path:
-		move(p.x, p.y)
+	if path != null:
+		for p in path:
+			if movesLeft <= 0:
+				return
+			yield(get_tree().create_timer(.25),"timeout")
+			move(p.x, p.y)
 
 func movePath(path):
 	if path != null:
 		for p in path:
 			if movesLeft <= 0:
 				return
+			yield(get_tree().create_timer(.25),"timeout")
 			move(p.x, p.y)
 	
 func newTurn(): # reset moves and ap
@@ -143,7 +152,6 @@ func damage(amount):
 		tailSectors.pop_back()
 
 func _die():
-	var cam = get_node("/root/Battle/CamControl")
 	if cam.selectedProgram == self:
 		cam.deselectProgram()
 	cam.progs[owningPlayerId].erase(self)
