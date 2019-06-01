@@ -52,6 +52,10 @@ func selectProgram(prog):
 		return
 	if selectedProgram != null:
 		deselectProgram()
+	if selectedAbility != null:
+		# don't select the program if we're trying to attack it
+		if selectedAbility.targetType == "enemy" and prog.owningPlayerId != currentPlayer:
+			return
 	selectedProgram = prog
 	get_node("Camera2D/ActionButtons").visible = true
 	# add abilities to actionButtons
@@ -66,6 +70,7 @@ func selectProgram(prog):
 func deselectProgram():
 	if selectedProgram != null:
 		selectedProgram._deselect()
+		deselectAbility()
 		selectedProgram = null
 		get_node("Camera2D/ActionButtons").visible = false
 		get_node("Camera2D/ActionButtons/ActionButton1").text = ""

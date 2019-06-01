@@ -43,16 +43,11 @@ func _input_event(viewport, event, shape_idx):
 		get_node("../CamControl").selectProgram(self)
 
 func _select():
-	if turnEnded == true:
-		_passiveSelect()
-		return
 	print("Selecting " + progName)
 	_showMoveGizmos()
 
 func _deselect():
 	_hideMoveGizmos()
-	for a in abilities:
-		a._deselect()
 
 func _passiveSelect(): # the current player doesn't control this program
 	print("Passive selecting " + progName)
@@ -108,31 +103,36 @@ func move(x, y):
 	position.x = tileX*32
 	position.y = tileY*32
 	movesLeft -= 1
+	if movesLeft == 0 and abilities.size() == 0:
+		turnEnded = true
 	# update ability positions
 	for a in abilities:
 		a.tileX = tileX
 		a.tileY = tileY
 
 func gizmoCallback(x, y):
-	if get_node("../CamControl").currentPlayerType() == 0:
+	_hideMoveGizmos()
+	if get_node("/root/Battle/CamControl").currentPlayerType() == 0:
 		multiMove(x, y)
+	if movesLeft != 0:
+		_showMoveGizmos()
 	
 func multiMove(x, y):
 	var path = get_node(levelRef).findPath(Vector2(tileX, tileY), Vector2(x, y))
 	for p in path:
 		move(p.x, p.y)
-	_deselect()
-	_select()
-	
+
 func movePath(path):
-	for p in path:
-		if movesLeft <= 0:
-			return
-		move(p.x, p.y)
+	if path != null:
+		for p in path:
+			if movesLeft <= 0:
+				return
+			move(p.x, p.y)
 	
 func newTurn(): # reset moves and ap
 	movesLeft = movesPerTurn
 	apLeft = apPerTurn
+	turnEnded = false
 
 func damage(amount):
 	for i in range(amount):
@@ -143,4 +143,8 @@ func damage(amount):
 		tailSectors.pop_back()
 
 func _die():
+	var cam = get_node("/root/Battle/CamControl")
+	if cam.selectedProgram == self:
+		cam.deselectProgram()
+	cam.progs[owningPlayerId].erase(self)
 	queue_free()
