@@ -39,8 +39,17 @@ func _on_EndTurnButton_pressed():
 	_nextTurn()
 	
 func _nextTurn():
+	# make sure a player hasn't already won
+	for p in range(progs.size()):
+		var eliminatedPlayers = 0
+		if progs[p].empty():
+			eliminatedPlayers += 1
+		if eliminatedPlayers >= playerTypes.size()-1:
+			return endGame()
 	deselectProgram()
-	currentPlayer = (currentPlayer+1)%playerTypes.size()
+	currentPlayer = (currentPlayer+1)%playerTypes.size() # increment the player
+	if progs[currentPlayer].empty(): # if this player has no programs left
+		return _nextTurn() # skip their turn
 	for p in progs[currentPlayer]:
 		p.newTurn()
 	print("It is now player " + str(currentPlayer) + "'s turn.")
@@ -103,7 +112,18 @@ func _AITurn():
 			var t = bMap.findInRange(Vector2(p.tileX, p.tileY), targets, p.abilities[0].maxRange)
 			if t != null:
 				p.abilities[0].gizmoCallback(t.x, t.y)
+			# make sure a player hasn't already won
+		for p in range(progs.size()):
+			var eliminatedPlayers = 0
+			if progs[p].empty():
+				eliminatedPlayers += 1
+			if eliminatedPlayers >= playerTypes.size()-1:
+				return endGame()
 	_nextTurn()
+
+func endGame():
+	get_node("Camera2D/EndTurnButton").visible = false
+	print("GAME OVER")
 
 func currentPlayerType():
 	return playerTypes[currentPlayer]

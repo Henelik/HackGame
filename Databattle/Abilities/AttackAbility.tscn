@@ -7,6 +7,7 @@
 script = ExtResource( 1 )
 abilityName = "Attack"
 gizmoColor = Color( 0.92549, 0.470588, 0.470588, 0.682353 )
+damage = 2
 
 [node name="AttackSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
