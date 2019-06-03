@@ -9,46 +9,48 @@ script = ExtResource( 1 )
 playerTypes = [ 0, 1 ]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+z_index = 100
 current = true
+zoom = Vector2( 0.5, 0.5 )
 drag_margin_left = 0.0
 drag_margin_top = 0.0
 drag_margin_right = 0.0
 drag_margin_bottom = 0.0
 
 [node name="EndTurnButton" type="Button" parent="Camera2D"]
-margin_left = 427.37
-margin_top = 258.948
-margin_right = 494.37
-margin_bottom = 278.948
+margin_left = 179.419
+margin_top = 117.397
+margin_right = 246.419
+margin_bottom = 137.397
 text = "End Turn"
 
 [node name="ActionButtons" type="GridContainer" parent="Camera2D"]
 visible = false
-margin_left = -488.895
-margin_top = -238.263
-margin_right = -344.895
-margin_bottom = 149.737
+margin_left = -243.0
+margin_top = -132.0
+margin_right = -140.0
+margin_bottom = 131.0
 
 [node name="ActionButton1" type="Button" parent="Camera2D/ActionButtons"]
-margin_right = 144.0
+margin_right = 103.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 
 [node name="ActionButton2" type="Button" parent="Camera2D/ActionButtons"]
 margin_top = 24.0
-margin_right = 144.0
+margin_right = 103.0
 margin_bottom = 44.0
 size_flags_horizontal = 3
 
 [node name="ActionButton3" type="Button" parent="Camera2D/ActionButtons"]
 margin_top = 48.0
-margin_right = 144.0
+margin_right = 103.0
 margin_bottom = 68.0
 size_flags_horizontal = 3
 
 [node name="ActionButton4" type="Button" parent="Camera2D/ActionButtons"]
 margin_top = 72.0
-margin_right = 144.0
+margin_right = 103.0
 margin_bottom = 92.0
 size_flags_horizontal = 3
 

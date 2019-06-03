@@ -7,7 +7,6 @@
 [node name="Battle" type="Node2D"]
 
 [node name="CamControl" parent="." instance=ExtResource( 1 )]
-playerTypes = [ 1, 1 ]
 
 [node name="ProgramHead" parent="." groups=[
 "Programs",
@@ -34,6 +33,7 @@ progName = "Hack"
 col = Color( 0.290196, 0.541176, 0.933333, 1 )
 owningPlayerId = 1
 abilityRefs = [ "res://Databattle/Abilities/AttackAbility.tscn" ]
+iconPath = "res://Sprites/Program Icons/Pickaxe.png"
 
 [node name="BattleMap" parent="." instance=ExtResource( 3 )]
 

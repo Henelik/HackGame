@@ -8,6 +8,7 @@ export(String) var progName
 export(Color) var col
 export(int) var owningPlayerId
 export(Array, String) var abilityRefs
+export(String, FILE, "*.png") var iconPath
 
 var levelRef = "../BattleMap"
 var tileX
@@ -29,12 +30,14 @@ func _ready():
 	position.x = tileX*32
 	position.y = tileY*32
 	selected = false
-	$Sprite.modulate = col
+	$SectorSprite.modulate = col
 	for a in abilityRefs: # load and instantiate the ability nodes from the references
 		abilities.append(load(a).instance())
 		add_child(abilities[-1])
 		abilities[-1].tileX = tileX
 		abilities[-1].tileY = tileY
+	if iconPath != "":
+		$IconSprite.texture = load(iconPath)
 
 func _input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton\
