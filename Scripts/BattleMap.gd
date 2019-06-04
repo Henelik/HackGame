@@ -1,6 +1,6 @@
 extends TileMap
 
-var moveMap
+var moveMap # dictionary of the cost to move to each valid tile
 
 func _ready():
 	pass
@@ -94,7 +94,7 @@ func findPathGroup(a : Vector2, b : Array, distance = 0): # find the shortest pa
 				if not fScore.has(n) or temp < fScore[n]:
 					fScore[n] = temp
 
-func _reconstructPath(cameFrom, current):
+func _reconstructPath(cameFrom : Dictionary, current : Vector2):
 	var off = Vector2(1, 1)
 	var path = [current]
 	while current in cameFrom.keys():

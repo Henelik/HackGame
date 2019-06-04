@@ -16,12 +16,15 @@ func unload():
 		currentBattle.queue_free()
 		currentBattle = null
 	
-func loadOverworld(path):
+func loadOverworld(path : String):
 	unload()
 	currentOverworld = load(path).instance()
 	add_child(currentOverworld)
 	
-func loadBattle(path):
+func loadBattle(path : String):
 	unload()
 	currentBattle = load(path).instance()
 	add_child(currentBattle)
+	
+func battleCallback(winner : int, unlockedNode : bool, credits = 0):
+	pass

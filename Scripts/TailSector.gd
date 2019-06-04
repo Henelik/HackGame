@@ -4,5 +4,5 @@ extends Area2D
 var tileX
 var tileY
 
-func setColor(col):
+func setColor(col : Color):
 	$Sprite.modulate = col

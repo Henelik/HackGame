@@ -80,7 +80,7 @@ func _hideMoveGizmos():
 		get_node("/root").remove_child(g)
 	moveGizmos = []
 
-func _addTailSector(x, y):
+func _addTailSector(x : int, y : int):
 	for t in tailSectors: # If there is already a tail sector here
 		if x == t.tileX and y == t.tileY:
 			# Move the sector to the front of the list
@@ -97,7 +97,7 @@ func _addTailSector(x, y):
 		tailSectors[-1].queue_free()
 		tailSectors.pop_back()
 
-func move(x, y):
+func move(x : int, y : int):
 	print("Moving " + progName + " to " + str([x, y]))
 	get_node("moveSoundPlayer").play()
 	for t in tailSectors:
@@ -117,7 +117,7 @@ func move(x, y):
 		a.tileX = tileX
 		a.tileY = tileY
 
-func gizmoCallback(x, y):
+func gizmoCallback(x : int, y : int):
 	_hideMoveGizmos()
 	if cam.currentPlayerType() == 0:
 		yield(multiMove(x, y), "completed")
@@ -146,7 +146,7 @@ func newTurn(): # reset moves and ap
 	apLeft = apPerTurn
 	turnEnded = false
 
-func damage(amount):
+func damage(amount : int):
 	for i in range(amount):
 		if tailSectors.size() == 0:
 			_die()
