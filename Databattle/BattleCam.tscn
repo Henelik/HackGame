@@ -56,8 +56,21 @@ margin_right = 143.0
 margin_bottom = 92.0
 size_flags_horizontal = 3
 
+[node name="EndScreen" type="GridContainer" parent="Camera2D"]
+visible = false
+margin_left = -34.0
+margin_top = 173.0
+margin_right = 78.0
+margin_bottom = 209.0
+
+[node name="ExitButton" type="Button" parent="Camera2D/EndScreen"]
+margin_right = 77.0
+margin_bottom = 20.0
+text = "Exit Battle"
+
 [connection signal="pressed" from="Camera2D/EndTurnButton" to="." method="_on_EndTurnButton_pressed"]
 [connection signal="pressed" from="Camera2D/ActionButtons/ActionButton1" to="." method="_on_ActionButton1_pressed"]
 [connection signal="pressed" from="Camera2D/ActionButtons/ActionButton2" to="." method="_on_ActionButton2_pressed"]
 [connection signal="pressed" from="Camera2D/ActionButtons/ActionButton3" to="." method="_on_ActionButton3_pressed"]
 [connection signal="pressed" from="Camera2D/ActionButtons/ActionButton4" to="." method="_on_ActionButton4_pressed"]
+[connection signal="pressed" from="Camera2D/EndScreen/ExitButton" to="." method="_on_ExitButton_pressed"]

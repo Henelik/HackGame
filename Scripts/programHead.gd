@@ -159,3 +159,8 @@ func _die():
 		cam.deselectProgram()
 	cam.progs[owningPlayerId].erase(self)
 	queue_free()
+	
+func clear():
+	for t in self.tailSectors:
+		t.queue_free()
+	_hideMoveGizmos()

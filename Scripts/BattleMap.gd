@@ -61,6 +61,8 @@ func findPath(a : Vector2, b : Vector2, distance = 0):
 func findPathGroup(a : Vector2, b : Array, distance = 0): # find the shortest path to any tile in b
 	if moveMap == null:
 		_updateMoveMap(null)
+	if b.empty():
+		return null
 	var cameFrom = {}
 	var closed = []
 	var open = [a]

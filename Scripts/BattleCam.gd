@@ -10,6 +10,8 @@ var selectedAbility
 var progs = []
 var bMap
 var programMoving = false
+var battleOver = false
+var winningPlayer : int
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -39,14 +41,10 @@ func _on_EndTurnButton_pressed():
 	_nextTurn()
 	
 func _nextTurn():
+	if battleOver:
+		return
 	get_node("Camera2D/EndTurnButton").visible = true
-	# make sure a player hasn't already won
-	for p in range(progs.size()):
-		var eliminatedPlayers = 0
-		if progs[p].empty():
-			eliminatedPlayers += 1
-		if eliminatedPlayers >= playerTypes.size()-1:
-			return endGame()
+	checkWinner()
 	deselectProgram()
 	currentPlayer = (currentPlayer+1)%playerTypes.size() # increment the player
 	if progs[currentPlayer].empty(): # if this player has no programs left
@@ -54,7 +52,7 @@ func _nextTurn():
 	for p in progs[currentPlayer]: # tell all this player's programs that it's their turn
 		p.newTurn()
 	print("It is now player " + str(currentPlayer) + "'s turn.")
-	if playerTypes[currentPlayer] == 1:
+	if playerTypes[currentPlayer] == 1: # play as the AI
 		get_node("Camera2D/EndTurnButton").visible = false
 		yield(get_tree().create_timer(.5),"timeout")
 		_AITurn()
@@ -114,19 +112,33 @@ func _AITurn():
 			var t = bMap.findInRange(Vector2(p.tileX, p.tileY), targets, p.abilities[0].maxRange)
 			if t != null:
 				p.abilities[0].gizmoCallback(t.x, t.y)
-			# make sure a player hasn't already won
-		for p in range(progs.size()):
-			var eliminatedPlayers = 0
-			if progs[p].empty():
-				eliminatedPlayers += 1
-			if eliminatedPlayers >= playerTypes.size()-1:
-				return endGame()
 	_nextTurn()
 
-func endGame():
+func checkWinner():
+	var eliminatedPlayers : Array = []
+	var winner : int
+	for p in range(progs.size()):
+		if progs[p].empty():
+			eliminatedPlayers.append(1) # this player has been eliminated
+		else:
+			eliminatedPlayers.append(0) # this player has not been eliminated
+	print(eliminatedPlayers.count(0))
+	if eliminatedPlayers.count(0) == 1:
+		endGame(eliminatedPlayers.find(0))
+
+func endGame(winner : int):
 	get_node("Camera2D/EndTurnButton").visible = false
 	get_node("Camera2D/ActionButtons").visible = false
-	print("GAME OVER")
+	print("Battle ended")
+	battleOver = true
+	winningPlayer = winner
+	get_node("Camera2D/EndScreen").visible = true
+
+func exitBattle():
+	for pl in progs:
+		for p in pl:
+			p.clear()
+	get_node("/root/GameRoot").battleCallback(winningPlayer, true)
 
 func currentPlayerType():
 	return playerTypes[currentPlayer]
@@ -158,3 +170,6 @@ func deselectAbility():
 	if selectedAbility != null:
 		selectedAbility._deselect()
 		selectedAbility = null
+
+func _on_ExitButton_pressed():
+	exitBattle()
