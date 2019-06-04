@@ -123,6 +123,7 @@ func _AITurn():
 
 func endGame():
 	get_node("Camera2D/EndTurnButton").visible = false
+	get_node("Camera2D/ActionButtons").visible = false
 	print("GAME OVER")
 
 func currentPlayerType():

@@ -19,11 +19,9 @@ func _updateMoveMap(currentProg):
 					moveMap[Vector2(t.tileX, t.tileY)] = 2
 		if Vector2(p.tileX, p.tileY) in moveList:
 			moveList.erase(Vector2(p.tileX, p.tileY))
-			moveMap[Vector2(p.tileX, p.tileY)] = 1000
 		for t in p.tailSectors:
 			if Vector2(t.tileX, t.tileY) in moveList:
 				moveList.erase(Vector2(t.tileX, t.tileY))
-				moveMap[Vector2(t.tileX, t.tileY)] = 1000
 	for i in moveList:
 		moveMap[i] = 1
 

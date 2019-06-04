@@ -7,7 +7,7 @@ export(int) var maxSize = 3
 export(String) var progName
 export(Color) var col
 export(int) var owningPlayerId
-export(Array, String) var abilityRefs
+export(Array, String, FILE, "*.tscn") var abilityRefs
 export(String, FILE, "*.png") var iconPath
 
 var levelRef = "../BattleMap"
