@@ -5,6 +5,7 @@
 
 [node name="NetNode" type="Node2D"]
 script = ExtResource( 1 )
+battleScenePath = "res://test.tscn"
 
 [node name="Button" type="TextureButton" parent="."]
 margin_right = 65.0

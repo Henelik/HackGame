@@ -21,7 +21,7 @@ var tailSectors = []
 var tailScn = load("res://Databattle/TailSector.tscn")
 var abilities = []
 var turnEnded = false # true if this program has ended its turn
-onready var cam = get_node("/root/Battle/CamControl")
+onready var cam = get_node("/root/GameRoot/Battle/CamControl")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

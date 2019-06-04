@@ -6,4 +6,4 @@ func _ready():
 	pass
 
 func _on_pressed():
-	pass # Replace with function body.
+	get_node("/root/GameRoot").loadBattle(battleScenePath)
