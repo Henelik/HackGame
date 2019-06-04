@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Scripts/CameraController.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/BattleCam.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/CurrentCam.gd" type="Script" id=2]
 
-[node name="CamControl" type="KinematicBody2D"]
+[node name="BattleCam" type="KinematicBody2D"]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource( 1 )

@@ -39,6 +39,7 @@ func _on_EndTurnButton_pressed():
 	_nextTurn()
 	
 func _nextTurn():
+	get_node("Camera2D/EndTurnButton").visible = true
 	# make sure a player hasn't already won
 	for p in range(progs.size()):
 		var eliminatedPlayers = 0
@@ -50,10 +51,11 @@ func _nextTurn():
 	currentPlayer = (currentPlayer+1)%playerTypes.size() # increment the player
 	if progs[currentPlayer].empty(): # if this player has no programs left
 		return _nextTurn() # skip their turn
-	for p in progs[currentPlayer]:
+	for p in progs[currentPlayer]: # tell all this player's programs that it's their turn
 		p.newTurn()
 	print("It is now player " + str(currentPlayer) + "'s turn.")
 	if playerTypes[currentPlayer] == 1:
+		get_node("Camera2D/EndTurnButton").visible = false
 		yield(get_tree().create_timer(.5),"timeout")
 		_AITurn()
 		

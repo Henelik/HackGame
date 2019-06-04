@@ -49,10 +49,10 @@ func _hideGizmos():
 	
 func _postFire():
 	get_parent().turnEnded = true
-	get_tree().get_root().get_node("/root/GameRoot/Battle/CamControl").deselectAbility()
+	get_tree().get_root().get_node("/root/GameRoot/Battle/BattleCam").deselectAbility()
 
 func findTarget(tile: Vector2):
-	var cam = get_tree().get_root().get_node("/root/GameRoot/Battle/CamControl")
+	var cam = get_tree().get_root().get_node("/root/GameRoot/Battle/BattleCam")
 	for player in cam.progs:
 		for p in player:
 			if Vector2(p.tileX, p.tileY) == tile:

@@ -10,7 +10,6 @@ export(int) var owningPlayerId
 export(Array, String, FILE, "*.tscn") var abilityRefs
 export(String, FILE, "*.png") var iconPath
 
-var levelRef = "../BattleMap"
 var tileX
 var tileY
 var moveGizmos = []
@@ -21,7 +20,8 @@ var tailSectors = []
 var tailScn = load("res://Databattle/TailSector.tscn")
 var abilities = []
 var turnEnded = false # true if this program has ended its turn
-onready var cam = get_node("/root/GameRoot/Battle/CamControl")
+onready var cam = get_node("../BattleCam")
+onready var level = get_node("../BattleMap")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -57,13 +57,13 @@ func _passiveSelect(): # the current player doesn't control this program
 	print("Passive selecting " + progName)
 	
 func _showMoveGizmos():
-	get_node(levelRef)._updateMoveMap(self)
+	level._updateMoveMap(self)
 	if movesLeft > 0:
 		var gizScn = load("res://Databattle/Gizmo.tscn")
 		for x in range(tileX-movesLeft, tileX+movesLeft+1):
 			for y in range(tileY-movesLeft, tileY+movesLeft+1):
 				if abs(x-tileX)+abs(y-tileY) <= movesLeft and not (x == tileX and y == tileY):
-					var path = get_node(levelRef).findPathGroup(Vector2(tileX, tileY), [Vector2(x, y)])
+					var path = level.findPathGroup(Vector2(tileX, tileY), [Vector2(x, y)])
 					if path != null and path.size() <= movesLeft:
 						moveGizmos.append(gizScn.instance())
 						moveGizmos[-1].position.x = x*32
@@ -125,7 +125,7 @@ func gizmoCallback(x, y):
 		_showMoveGizmos()
 	
 func multiMove(x, y):
-	var path = get_node(levelRef).findPathGroup(Vector2(tileX, tileY), [Vector2(x, y)])
+	var path = level.findPathGroup(Vector2(tileX, tileY), [Vector2(x, y)])
 	if path != null:
 		for p in path:
 			if movesLeft <= 0:
