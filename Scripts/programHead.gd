@@ -63,7 +63,7 @@ func _showMoveGizmos():
 		for x in range(tileX-movesLeft, tileX+movesLeft+1):
 			for y in range(tileY-movesLeft, tileY+movesLeft+1):
 				if abs(x-tileX)+abs(y-tileY) <= movesLeft and not (x == tileX and y == tileY):
-					var path = get_node(levelRef).findPath(Vector2(tileX, tileY), Vector2(x, y))
+					var path = get_node(levelRef).findPathGroup(Vector2(tileX, tileY), [Vector2(x, y)])
 					if path != null and path.size() <= movesLeft:
 						moveGizmos.append(gizScn.instance())
 						moveGizmos[-1].position.x = x*32
@@ -125,7 +125,7 @@ func gizmoCallback(x, y):
 		_showMoveGizmos()
 	
 func multiMove(x, y):
-	var path = get_node(levelRef).findPath(Vector2(tileX, tileY), Vector2(x, y))
+	var path = get_node(levelRef).findPathGroup(Vector2(tileX, tileY), [Vector2(x, y)])
 	if path != null:
 		for p in path:
 			if movesLeft <= 0:

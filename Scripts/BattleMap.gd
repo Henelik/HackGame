@@ -5,17 +5,27 @@ var moveMap
 func _ready():
 	pass
 
-func _updateMoveMap(ignoreProg):
-	moveMap = get_used_cells()
+func _updateMoveMap(currentProg):
+	var moveList = get_used_cells()
+	moveMap = {}
 	for p in get_tree().get_nodes_in_group("Programs"):
-		if p == ignoreProg:
-			print("ignoring " + ignoreProg.progName)
-			continue
-		if Vector2(p.tileX, p.tileY) in moveMap:
-			moveMap.erase(Vector2(p.tileX, p.tileY))
+		if p == currentProg:
+			if Vector2(p.tileX, p.tileY) in moveList:
+				moveList.erase(Vector2(p.tileX, p.tileY))
+				moveMap[Vector2(p.tileX, p.tileY)] = 2
+			for t in p.tailSectors:
+				if Vector2(t.tileX, t.tileY) in moveList:
+					moveList.erase(Vector2(t.tileX, t.tileY))
+					moveMap[Vector2(t.tileX, t.tileY)] = 2
+		if Vector2(p.tileX, p.tileY) in moveList:
+			moveList.erase(Vector2(p.tileX, p.tileY))
+			moveMap[Vector2(p.tileX, p.tileY)] = 1000
 		for t in p.tailSectors:
-			if Vector2(t.tileX, t.tileY) in moveMap:
-				moveMap.erase(Vector2(t.tileX, t.tileY))
+			if Vector2(t.tileX, t.tileY) in moveList:
+				moveList.erase(Vector2(t.tileX, t.tileY))
+				moveMap[Vector2(t.tileX, t.tileY)] = 1000
+	for i in moveList:
+		moveMap[i] = 1
 
 func findPath(a : Vector2, b : Vector2, distance = 0):
 	if moveMap == null:
@@ -24,7 +34,7 @@ func findPath(a : Vector2, b : Vector2, distance = 0):
 	var closed = []
 	var open = [a]
 	var gScore = {a:0} # distance from each tile to a
-	var fScore = {a:1000000} # approximate number of moves it takes to get from a to b through each tile
+	var fScore = {a:10000} # approximate number of moves it takes to get from a to b through each tile
 	var current
 	while not open.empty():
 		current = open[0]
@@ -57,7 +67,7 @@ func findPathGroup(a : Vector2, b : Array, distance = 0): # find the shortest pa
 	var closed = []
 	var open = [a]
 	var gScore = {a:0} # distance from each tile to a
-	var fScore = {a:1000000} # approximate number of moves it takes to get from a to b through each tile
+	var fScore = {a:10000} # approximate number of moves it takes to get from a to b through each tile
 	var current
 	while not open.empty():
 		current = open[0]
@@ -68,12 +78,12 @@ func findPathGroup(a : Vector2, b : Array, distance = 0): # find the shortest pa
 			return _reconstructPath(cameFrom, current)
 		open.erase(current)
 		closed.append(current)
-		var gScoreTemp = gScore[current]+1
 		for n in [Vector2(current.x+1, current.y), Vector2(current.x, current.y-1), Vector2(current.x-1, current.y), Vector2(current.x, current.y+1)]:
 			if not moveMap.has(n):
 				continue
 			if closed.has(n):
 				continue
+			var gScoreTemp = gScore[current]+moveMap[n]
 			if not open.has(n): # this is a new tile
 				open.append(n)
 			elif gScoreTemp >= gScore[n]:
