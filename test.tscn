@@ -1,40 +1,24 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Databattle/ProgramHead.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Databattle/BattleCam.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Databattle/BattleMap.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Databattle/BattleCam.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Databattle/Programs/IceBreaker.tscn" type="PackedScene" id=3]
 
 [node name="Battle" type="Node2D"]
 
-[node name="ProgramHead" parent="." groups=[
-"Programs",
-] instance=ExtResource( 1 )]
-position = Vector2( 62.7798, -66.2736 )
-movesPerTurn = 5
-maxSize = 4
-abilityRefs = [ "res://Databattle/Abilities/AttackAbility.tscn" ]
-
-[node name="ProgramHead3" parent="." groups=[
-"Programs",
-] instance=ExtResource( 1 )]
-position = Vector2( 0.0796509, 127.527 )
-movesPerTurn = 5
-maxSize = 4
-
-[node name="ProgramHead2" parent="." groups=[
-"Programs",
-] instance=ExtResource( 1 )]
-position = Vector2( 227.83, -0.0235291 )
-movesPerTurn = 2
-maxSize = 3
-progName = "Hack"
-col = Color( 0.290196, 0.541176, 0.933333, 1 )
-owningPlayerId = 1
-abilityRefs = [ "res://Databattle/Abilities/AttackAbility.tscn" ]
-iconPath = "res://Sprites/Program Icons/Pickaxe.png"
+[node name="BattleCam" parent="." instance=ExtResource( 1 )]
+position = Vector2( 11.7841, -0.30191 )
 
 [node name="BattleMap" parent="." instance=ExtResource( 2 )]
 
-[node name="BattleCam" parent="." instance=ExtResource( 3 )]
-position = Vector2( 11.7841, -0.30191 )
+[node name="Icebreaker2" parent="." groups=[
+"Programs",
+] instance=ExtResource( 3 )]
+position = Vector2( 98.9361, 129.204 )
+owningPlayerId = 1
+
+[node name="Icebreaker" parent="." groups=[
+"Programs",
+] instance=ExtResource( 3 )]
+position = Vector2( 63.0979, -27.1805 )
 

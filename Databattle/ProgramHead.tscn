@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/ProgramHead.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Sector.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/Program Icons/Icepick.png" type="Texture" id=3]
 [ext_resource path="res://Sounds/Move.wav" type="AudioStream" id=4]
+[ext_resource path="res://Sounds/Select.wav" type="AudioStream" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -12,8 +13,8 @@ z_index = 1
 script = ExtResource( 1 )
 movesPerTurn = 3
 maxSize = 2
-progName = "Pick"
-col = Color( 0.388235, 0.933333, 0.290196, 1 )
+progName = "Ice Breaker"
+col = Color( 0.290196, 0.843137, 0.933333, 1 )
 
 [node name="SectorSprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
@@ -28,11 +29,15 @@ visible = false
 scale = Vector2( 1.5, 1.5 )
 shape = SubResource( 1 )
 
-[node name="moveSoundPlayer" type="AudioStreamPlayer" parent="."]
+[node name="MoveSoundPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 volume_db = -5.6
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
+
+[node name="SelectSoundPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -7.123
 

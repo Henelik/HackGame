@@ -36,6 +36,7 @@ func _ready():
 		add_child(abilities[-1])
 		abilities[-1].tileX = tileX
 		abilities[-1].tileY = tileY
+		abilities[-1].camRef = cam
 	if iconPath != "":
 		$IconSprite.texture = load(iconPath)
 
@@ -48,6 +49,7 @@ func _input_event(viewport, event, shape_idx):
 
 func _select():
 	print("Selecting " + progName)
+	get_node("SelectSoundPlayer").play()
 	_showMoveGizmos()
 
 func _deselect():
@@ -99,7 +101,7 @@ func _addTailSector(x : int, y : int):
 
 func move(x : int, y : int):
 	print("Moving " + progName + " to " + str([x, y]))
-	get_node("moveSoundPlayer").play()
+	get_node("MoveSoundPlayer").play()
 	for t in tailSectors:
 		if x == t.tileX and y == t.tileY:
 			t.queue_free()

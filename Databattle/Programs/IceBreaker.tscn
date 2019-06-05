@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Databattle/ProgramHead.tscn" type="PackedScene" id=1]
+
+[node name="Icebreaker" instance=ExtResource( 1 )]
+progName = "Icebreaker"
+abilityRefs = [ "res://Databattle/Abilities/Break.tscn" ]
+iconPath = "res://Sprites/Program Icons/Icepick.png"
+
