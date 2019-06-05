@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Databattle/ProgramHead.tscn" type="PackedScene" id=1]
+
+[node name="ProgramHead" index="0" instance=ExtResource( 1 )]
+maxSize = 4
+progName = "Ice Pick"
+abilityRefs = [ "res://Databattle/Abilities/Hack.tscn" ]
+
