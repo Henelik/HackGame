@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Databattle/ProgramHead.tscn" type="PackedScene" id=1]
+
+[node name="Slingshot" index="0" instance=ExtResource( 1 )]
+movesPerTurn = 2
+progName = "Slingshot"
+col = Color( 0.290196, 0.933333, 0.556863, 1 )
+abilityRefs = [ "res://Databattle/Abilities/Pelt.tscn" ]
+iconPath = "res://Sprites/Program Icons/Slingshot.png"
+

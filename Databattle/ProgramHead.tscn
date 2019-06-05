@@ -8,12 +8,14 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 
-[node name="ProgramHead" type="Area2D"]
+[node name="ProgramHead" type="Area2D" groups=[
+"Programs",
+]]
 z_index = 1
 script = ExtResource( 1 )
 movesPerTurn = 3
 maxSize = 2
-progName = "Ice Breaker"
+progName = "Icebreaker"
 col = Color( 0.290196, 0.843137, 0.933333, 1 )
 
 [node name="SectorSprite" type="Sprite" parent="."]
