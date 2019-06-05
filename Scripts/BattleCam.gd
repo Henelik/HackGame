@@ -162,9 +162,10 @@ func _on_ActionButton4_pressed():
 func selectAbility(n):
 	if selectedProgram != null:
 		if selectedProgram.abilities.size() > n and not selectedProgram.turnEnded:
-			selectedProgram.abilities[n]._select()
-			selectedAbility = selectedProgram.abilities[n]
-			selectedProgram._hideMoveGizmos()
+			if selectedProgram.owningPlayerId == currentPlayer and playerTypes[currentPlayer] == 0:
+				selectedProgram.abilities[n]._select()
+				selectedAbility = selectedProgram.abilities[n]
+				selectedProgram._hideMoveGizmos()
 
 func deselectAbility():
 	if selectedAbility != null:

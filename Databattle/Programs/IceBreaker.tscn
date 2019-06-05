@@ -6,5 +6,4 @@
 movesPerTurn = 2
 maxSize = 4
 abilityRefs = [ "res://Databattle/Abilities/Break.tscn" ]
-iconPath = "res://Sprites/Program Icons/Icepick.png"
 
