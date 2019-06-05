@@ -8,16 +8,18 @@ export(String) var progName
 export(Color) var col
 export(int) var owningPlayerId
 export(Array, String, FILE, "*.tscn") var abilityRefs
+export(String) var flavorText
 
-var tileX
-var tileY
-var moveGizmos = []
-var movesLeft
-var apLeft
-var selected
-var tailSectors = []
+var tileX : int
+var tileY : int
+var moveGizmos : Array = []
+var movesLeft : int
+var apLeft : int
+var selected : bool
+var tailSectors : Array = []
+var connectors : Array = []
 var tailScn = load("res://Databattle/TailSector.tscn")
-var abilities = []
+var abilities : Array = []
 var turnEnded = false # true if this program has ended its turn
 onready var cam = get_node("../BattleCam")
 onready var level = get_node("../BattleMap")
@@ -163,3 +165,9 @@ func clear():
 	for t in self.tailSectors:
 		t.queue_free()
 	_hideMoveGizmos()
+
+func _showConnectors():
+	pass
+	
+func _hideConnectors():
+	pass
