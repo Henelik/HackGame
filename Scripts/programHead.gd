@@ -8,7 +8,6 @@ export(String) var progName
 export(Color) var col
 export(int) var owningPlayerId
 export(Array, String, FILE, "*.tscn") var abilityRefs
-export(String, FILE, "*.png") var iconPath
 
 var tileX
 var tileY
@@ -37,8 +36,6 @@ func _ready():
 		abilities[-1].tileX = tileX
 		abilities[-1].tileY = tileY
 		abilities[-1].camRef = cam
-	if iconPath != "":
-		$IconSprite.texture = load(iconPath)
 
 func _input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton\
@@ -95,7 +92,7 @@ func _addTailSector(x : int, y : int):
 	tailSectors[0].tileY = y
 	tailSectors[0].position.x = x*32
 	tailSectors[0].position.y = y*32
-	while tailSectors.size() > maxSize:
+	while tailSectors.size() > maxSize-1:
 		tailSectors[-1].queue_free()
 		tailSectors.pop_back()
 
