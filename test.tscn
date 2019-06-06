@@ -17,11 +17,11 @@ tile_data = PoolIntArray( -65540, 0, 0, -65539, 0, 0, -65538, 0, 0, -65537, 0, 0
 [node name="Icebreaker" parent="." instance=ExtResource( 3 )]
 position = Vector2( 28.8887, -1.11639 )
 
-[node name="Slingshot" parent="." instance=ExtResource( 4 )]
-position = Vector2( 225.184, -0.30191 )
-
 [node name="Icebreaker2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 97.3071, 127.575 )
 col = Color( 0.866667, 0.933333, 0.290196, 1 )
 owningPlayerId = 1
+
+[node name="Slingshot" parent="." instance=ExtResource( 4 )]
+position = Vector2( 190.16, 2.14183 )
 

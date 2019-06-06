@@ -13,10 +13,9 @@
 ]]
 z_index = 1
 script = ExtResource( 1 )
-movesPerTurn = 3
-maxSize = 2
-progName = "Icebreaker"
-col = Color( 0.290196, 0.843137, 0.933333, 1 )
+progName = "Base Program"
+col = Color( 1, 1, 1, 1 )
+flavorText = "Shouldn't be used in battle."
 
 [node name="SectorSprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )

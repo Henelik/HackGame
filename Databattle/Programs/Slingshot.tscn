@@ -4,7 +4,7 @@
 [ext_resource path="res://Sprites/Program Icons/Slingshot.png" type="Texture" id=2]
 
 [node name="Slingshot" instance=ExtResource( 1 )]
-movesPerTurn = 2
+maxSize = 2
 progName = "Slingshot"
 col = Color( 0.290196, 0.933333, 0.556863, 1 )
 abilityRefs = [ "res://Databattle/Abilities/Pelt.tscn" ]

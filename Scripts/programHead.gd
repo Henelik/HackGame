@@ -17,8 +17,10 @@ var movesLeft : int
 var apLeft : int
 var selected : bool
 var tailSectors : Array = []
-var connectors : Array = []
 var tailScn = load("res://Databattle/TailSector.tscn")
+var connectors : Array = []
+var horizScn = load("res://Databattle/HorizontalConnector.tscn")
+var vertScn = load("res://Databattle/VerticalConnector.tscn")
 var abilities : Array = []
 var turnEnded = false # true if this program has ended its turn
 onready var cam = get_node("../BattleCam")
@@ -117,6 +119,7 @@ func move(x : int, y : int):
 	for a in abilities:
 		a.tileX = tileX
 		a.tileY = tileY
+	_showConnectors()
 
 func gizmoCallback(x : int, y : int):
 	_hideMoveGizmos()
@@ -154,20 +157,38 @@ func damage(amount : int):
 			return
 		tailSectors[-1].queue_free()
 		tailSectors.pop_back()
+	_showConnectors()
 
 func _die():
 	if cam.selectedProgram == self:
 		cam.deselectProgram()
 	cam.progs[owningPlayerId].erase(self)
+	clear()
 	queue_free()
 	
 func clear():
 	for t in self.tailSectors:
 		t.queue_free()
 	_hideMoveGizmos()
+	_hideConnectors()
 
 func _showConnectors():
-	pass
-	
+	_hideConnectors()
+	for t in tailSectors:
+		if (t.tileX == tileX+1 or t.tileX == tileX-1) and t.tileY == tileY:
+			connectors.append(horizScn.instance())
+			connectors[-1].setColor(col)
+			connectors[-1].position.x = (t.position.x+position.x)/2
+			connectors[-1].position.y = position.y
+			get_node("/root").add_child(connectors[-1])
+		if (t.tileY == tileY+1 or t.tileY == tileY-1) and t.tileX == tileX:
+			connectors.append(vertScn.instance())
+			connectors[-1].setColor(col)
+			connectors[-1].position.x = t.position.x
+			connectors[-1].position.y = (t.position.y+position.y)/2
+			get_node("/root").add_child(connectors[-1])
+
 func _hideConnectors():
-	pass
+	for c in connectors:
+		connectors.erase(c)
+		c.queue_free()
