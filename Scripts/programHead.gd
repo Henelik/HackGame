@@ -136,6 +136,7 @@ func multiMove(x, y):
 				return
 			yield(get_tree().create_timer(.25),"timeout")
 			move(p.x, p.y)
+	_showConnectors()
 
 func movePath(path):
 	if path != null:
@@ -187,8 +188,24 @@ func _showConnectors():
 			connectors[-1].position.x = t.position.x
 			connectors[-1].position.y = (t.position.y+position.y)/2
 			get_node("/root").add_child(connectors[-1])
+	for i in range(tailSectors.size()-1):
+		var t = tailSectors[i]
+		for j in range(i, tailSectors.size()):
+			var o = tailSectors[j]
+			if (o.tileX == t.tileX+1 or o.tileX == t.tileX-1) and o.tileY == t.tileY:
+				connectors.append(horizScn.instance())
+				connectors[-1].setColor(col)
+				connectors[-1].position.x = (o.position.x+t.position.x)/2
+				connectors[-1].position.y = t.position.y
+				get_node("/root").add_child(connectors[-1])
+			if (o.tileY == t.tileY+1 or o.tileY == t.tileY-1) and o.tileX == t.tileX:
+				connectors.append(vertScn.instance())
+				connectors[-1].setColor(col)
+				connectors[-1].position.x = t.position.x
+				connectors[-1].position.y = (o.position.y+t.position.y)/2
+				get_node("/root").add_child(connectors[-1])
 
 func _hideConnectors():
 	for c in connectors:
-		connectors.erase(c)
 		c.queue_free()
+		connectors.erase(c)
