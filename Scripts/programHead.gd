@@ -15,7 +15,6 @@ var tileY : int
 var moveGizmos : Array = []
 var movesLeft : int
 var apLeft : int
-var selected : bool
 var tailSectors : Array = []
 var tailScn = load("res://Databattle/TailSector.tscn")
 var connectors : Array = []
@@ -32,7 +31,6 @@ func _ready():
 	tileY = round(position.y/32)
 	position.x = tileX*32
 	position.y = tileY*32
-	selected = false
 	$SectorSprite.modulate = col
 	for a in abilityRefs: # load and instantiate the ability nodes from the references
 		abilities.append(load(a).instance())
@@ -166,7 +164,6 @@ func _die():
 	if cam.selectedProgram == self:
 		cam.deselectProgram()
 	cam.progs[owningPlayerId].erase(self)
-	yield(get_tree(), "idle_frame")
 	clear()
 	queue_free()
 	
@@ -176,7 +173,6 @@ func clear():
 	_hideConnectors()
 
 func _showConnectors():
-	print("Number of tail sectors is " + str(tailSectors.size()))
 	_hideConnectors()
 #	if tailSectors.size() == 0:
 #		return

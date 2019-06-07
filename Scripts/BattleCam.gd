@@ -4,6 +4,7 @@ extends KinematicBody2D
 var speed = 350
 var velocity = Vector2()
 export(Array, int) var playerTypes # 0 is local, 1 is AI, 2 is online
+export(Array, String) var playerNames
 var currentPlayer # an index of the array
 var selectedProgram
 var selectedAbility
@@ -80,7 +81,8 @@ func selectProgram(prog):
 	
 func deselectProgram():
 	if selectedProgram != null:
-		selectedProgram._deselect()
+		if weakref(selectedProgram).get_ref():
+			selectedProgram._deselect()
 		deselectAbility()
 		selectedProgram = null
 		get_node("Camera2D/ActionButtons").visible = false
@@ -92,6 +94,7 @@ func deselectProgram():
 func _AITurn():
 	for p in progs[currentPlayer]:
 		var abRange = 1
+		print(p.progName)
 		if not p.abilities.empty():
 			if p.abilities[0].maxRange > abRange:
 				abRange = p.abilities[0].maxRange
