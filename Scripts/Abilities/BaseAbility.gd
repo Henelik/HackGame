@@ -16,7 +16,7 @@ func _ready():
 	pass
 	
 func checkRange(target: Vector2):
-	if abs(target.x-tileX)+abs(target.y-tileY) <= maxRange:
+	if abs(target.x-tileX)+abs(target.y-tileY) <= maxRange and not (target.x == tileX and target.y == tileY):
 		return true
 	return false
 
@@ -32,8 +32,7 @@ func _showGizmos():
 	var gizScn = load("res://Databattle/Gizmo.tscn")
 	for x in range(tileX-maxRange, tileX+maxRange+1):
 		for y in range(tileY-maxRange, tileY+maxRange+1):
-			if abs(x-tileX)+abs(y-tileY) <= maxRange and not (x == tileX and y == tileY):
-				print("spawning gizmo")
+			if checkRange(Vector2(x, y)):
 				gizmos.append(gizScn.instance())
 				gizmos[-1].position.x = x*32
 				gizmos[-1].position.y = y*32

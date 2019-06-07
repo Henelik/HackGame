@@ -7,7 +7,7 @@
 script = ExtResource( 1 )
 abilityName = "Jump"
 targetType = "level"
-maxRange = 2
+maxRange = 3
 gizmoColor = Color( 0.483856, 0.804541, 0.820313, 0.67451 )
 
 [node name="AbilitySound" type="AudioStreamPlayer" parent="."]
