@@ -152,13 +152,16 @@ func newTurn(): # reset moves and ap
 
 func damage(amount : int):
 	for i in range(amount):
+		yield(get_tree().create_timer(.1),"timeout")
 		if tailSectors.size() == 0:
 			_die()
 			return
-		tailSectors[-1].queue_free()
-		tailSectors.pop_back()
-	_hideConnectors()
+		#tailSectors[-1].queue_free()
+		tailSectors.pop_back().die()
+		if not connectors.empty():
+			connectors.pop_back().die()
 	_showConnectors()
+	return
 
 func _die():
 	if cam.selectedProgram == self:

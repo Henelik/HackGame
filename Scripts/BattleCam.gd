@@ -114,7 +114,7 @@ func _AITurn():
 			var t = bMap.findInRange(Vector2(p.tileX, p.tileY), targets, p.abilities[0].maxRange)
 			if t != null:
 				p.abilities[0].gizmoCallback(t.x, t.y)
-	yield(get_tree().create_timer(.5),"timeout")
+	yield(get_tree().create_timer(.25),"timeout")
 	_nextTurn()
 
 func checkWinner():
