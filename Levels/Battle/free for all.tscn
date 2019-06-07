@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Databattle/BattleCam.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Databattle/BattleMap.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Databattle/Programs/IceBreaker.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Databattle/Programs/Slingshot.tscn" type="PackedScene" id=4]
+
+[node name="Battle" type="Node2D"]
+
+[node name="BattleCam" parent="." instance=ExtResource( 1 )]
+position = Vector2( 11.7841, -0.30191 )
+playerTypes = [ 0, 1, 1, 1 ]
+
+[node name="BattleMap" parent="." instance=ExtResource( 2 )]
+tile_data = PoolIntArray( -131073, 0, 0, -196608, 0, 0, -65537, 1, 0, -131072, 1, 0, -1, 0, 0, -65536, 0, 0, 65532, 0, 0, 65533, 1, 0, 65534, 0, 0, 65535, 3, 0, 0, 4, 0, 1, 0, 0, 2, 1, 0, 3, 0, 0, 131068, 0, 0, 131069, 1, 0, 131070, 0, 0, 131071, 4, 0, 65536, 3, 0, 65537, 0, 0, 65538, 1, 0, 65539, 0, 0, 196607, 0, 0, 131072, 0, 0, 262143, 1, 0, 196608, 1, 0, 327679, 0, 0, 262144, 0, 0 )
+
+[node name="Icebreaker" parent="." instance=ExtResource( 3 )]
+position = Vector2( -129.656, -2.16411 )
+col = Color( 0.290196, 0.843137, 0.933333, 1 )
+
+[node name="Slingshot" parent="." instance=ExtResource( 4 )]
+position = Vector2( -130.983, 32.3338 )
+col = Color( 0.290196, 0.843137, 0.933333, 1 )
+
+[node name="Icebreaker2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 94.58, 32.3338 )
+col = Color( 0.290196, 0.933333, 0.556863, 1 )
+owningPlayerId = 1
+
+[node name="Slingshot2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 93.9166, -0.83728 )
+col = Color( 0.290196, 0.933333, 0.556863, 1 )
+owningPlayerId = 1
+
+[node name="Icebreaker3" parent="." instance=ExtResource( 3 )]
+position = Vector2( -0.289276, -95.7065 )
+col = Color( 0.92549, 0.176471, 0.176471, 1 )
+owningPlayerId = 2
+
+[node name="Slingshot3" parent="." instance=ExtResource( 4 )]
+position = Vector2( -34.1238, -95.7065 )
+col = Color( 0.92549, 0.176471, 0.176471, 1 )
+owningPlayerId = 2
+
+[node name="Icebreaker4" parent="." instance=ExtResource( 3 )]
+position = Vector2( -34.1238, 127.866 )
+col = Color( 0.933333, 0.803922, 0.290196, 1 )
+owningPlayerId = 3
+
+[node name="Slingshot4" parent="." instance=ExtResource( 4 )]
+position = Vector2( -0.289276, 127.203 )
+col = Color( 0.933333, 0.803922, 0.290196, 1 )
+owningPlayerId = 3
+
