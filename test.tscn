@@ -16,8 +16,6 @@ tile_data = PoolIntArray( -65540, 0, 0, -65539, 0, 0, -65538, 0, 0, -65537, 0, 0
 
 [node name="Icebreaker" parent="." instance=ExtResource( 3 )]
 position = Vector2( 28.8887, -1.11639 )
-movesPerTurn = 10
-maxSize = 5
 col = Color( 0.290196, 0.843137, 0.933333, 1 )
 
 [node name="Icebreaker2" parent="." instance=ExtResource( 3 )]
