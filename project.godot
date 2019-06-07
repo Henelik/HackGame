@@ -19,10 +19,6 @@ config/name="HackGame"
 run/main_scene="res://GameRoot.tscn"
 config/icon="res://icon.png"
 
-[display]
-
-window/stretch/mode="viewport"
-
 [rendering]
 
 quality/driver/driver_name="GLES2"
