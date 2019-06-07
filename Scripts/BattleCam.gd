@@ -45,7 +45,6 @@ func _nextTurn():
 	if battleOver:
 		return
 	get_node("Camera2D/EndTurnButton").visible = true
-	checkWinner()
 	deselectProgram()
 	currentPlayer = (currentPlayer+1)%playerTypes.size() # increment the player
 	if progs[currentPlayer].empty(): # if this player has no programs left
@@ -115,6 +114,7 @@ func _AITurn():
 			var t = bMap.findInRange(Vector2(p.tileX, p.tileY), targets, p.abilities[0].maxRange)
 			if t != null:
 				p.abilities[0].gizmoCallback(t.x, t.y)
+	yield(get_tree().create_timer(.5),"timeout")
 	_nextTurn()
 
 func checkWinner():

@@ -50,7 +50,7 @@ func _hideGizmos():
 	
 func _postFire():
 	get_parent().turnEnded = true
-	camRef.deselectAbility()
+	camRef.deselectProgram()
 
 func findTarget(tile: Vector2):
 	for player in camRef.progs:

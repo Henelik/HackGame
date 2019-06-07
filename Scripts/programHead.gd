@@ -166,6 +166,7 @@ func _die():
 	cam.progs[owningPlayerId].erase(self)
 	clear()
 	queue_free()
+	cam.checkWinner()
 	
 func clear():
 	for t in self.tailSectors:
@@ -174,8 +175,6 @@ func clear():
 
 func _showConnectors():
 	_hideConnectors()
-#	if tailSectors.size() == 0:
-#		return
 	for t in tailSectors:
 		if (t.tileX == tileX+1 or t.tileX == tileX-1) and t.tileY == tileY:
 			connectors.append(horizScn.instance())
