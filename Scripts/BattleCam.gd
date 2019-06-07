@@ -122,7 +122,6 @@ func checkWinner():
 			eliminatedPlayers.append(1) # this player has been eliminated
 		else:
 			eliminatedPlayers.append(0) # this player has not been eliminated
-	print(eliminatedPlayers.count(0))
 	if eliminatedPlayers.count(0) == 1:
 		endGame(eliminatedPlayers.find(0))
 

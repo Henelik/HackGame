@@ -52,6 +52,7 @@ func _select():
 	print("Selecting " + progName)
 	get_node("SelectSoundPlayer").play()
 	_showMoveGizmos()
+	_showConnectors()
 
 func _deselect():
 	_hideMoveGizmos()
@@ -75,7 +76,7 @@ func _showMoveGizmos():
 						moveGizmos[-1].tileY = y
 						moveGizmos[-1].owningNode = self
 						get_node("/root").add_child(moveGizmos[-1])
-	
+
 func _hideMoveGizmos():
 	print("hiding gizmos")
 	for g in moveGizmos:
@@ -158,6 +159,7 @@ func damage(amount : int):
 			return
 		tailSectors[-1].queue_free()
 		tailSectors.pop_back()
+	_hideConnectors()
 	_showConnectors()
 
 func _die():
@@ -170,11 +172,13 @@ func _die():
 func clear():
 	for t in self.tailSectors:
 		t.queue_free()
-	_hideMoveGizmos()
 	_hideConnectors()
 
 func _showConnectors():
+	print("Number of tail sectors is " + str(tailSectors.size()))
 	_hideConnectors()
+#	if tailSectors.size() == 0:
+#		return
 	for t in tailSectors:
 		if (t.tileX == tileX+1 or t.tileX == tileX-1) and t.tileY == tileY:
 			connectors.append(horizScn.instance())
@@ -208,4 +212,4 @@ func _showConnectors():
 func _hideConnectors():
 	for c in connectors:
 		c.queue_free()
-		connectors.erase(c)
+	connectors = []
