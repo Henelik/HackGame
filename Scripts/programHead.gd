@@ -164,10 +164,9 @@ func damage(amount : int):
 
 func _die():
 	if cam.selectedProgram == self:
-		print(cam.selectedProgram)
 		cam.deselectProgram()
-		print(cam.selectedProgram)
 	cam.progs[owningPlayerId].erase(self)
+	yield(get_tree(), "idle_frame")
 	clear()
 	queue_free()
 	
