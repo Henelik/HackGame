@@ -8,5 +8,6 @@ func fireProgram(target):
 	_postFire()
 	
 func fireTile(tile: Vector2):
+	return
 	get_node("AttackSound").play()
 	_postFire()

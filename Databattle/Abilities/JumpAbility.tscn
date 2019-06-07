@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Abilities/JumpAbility.gd" type="Script" id=1]
+[ext_resource path="res://Sounds/Upgrade.wav" type="AudioStream" id=2]
+
+[node name="JumpAbility" type="Node2D"]
+script = ExtResource( 1 )
+abilityName = "Jump"
+targetType = "level"
+maxRange = 2
+gizmoColor = Color( 0.483856, 0.804541, 0.820313, 0.67451 )
+
+[node name="AbilitySound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -4.303
+pitch_scale = 3.41
+
