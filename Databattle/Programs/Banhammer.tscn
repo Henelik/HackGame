@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Databattle/ProgramHead.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Sprites/Program Icons/Banhammer.png" type="Texture" id=2]
+
+[node name="Banhammer" instance=ExtResource( 1 )]
+movesPerTurn = 3
+maxSize = 2
+progName = "Banhammer"
+col = Color( 0.92549, 0.176471, 0.176471, 1 )
+abilityRefs = [ "res://Databattle/Abilities/Ban.tscn" ]
+flavorText = "Should've checked yourself before you rekked yourself."
+
+[node name="IconSprite" parent="." index="1"]
+texture = ExtResource( 2 )
+
