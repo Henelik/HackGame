@@ -164,7 +164,9 @@ func damage(amount : int):
 
 func _die():
 	if cam.selectedProgram == self:
+		print(cam.selectedProgram)
 		cam.deselectProgram()
+		print(cam.selectedProgram)
 	cam.progs[owningPlayerId].erase(self)
 	clear()
 	queue_free()
