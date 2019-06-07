@@ -10,8 +10,8 @@ var selectedProgram
 var selectedAbility
 var progs = []
 var bMap
-var programMoving = false
-var battleOver = false
+var programMoving : bool = false
+var battleOver : bool = false
 var winningPlayer : int
 
 # Called when the node enters the scene tree for the first time.
@@ -58,6 +58,8 @@ func _nextTurn():
 		_AITurn()
 		
 func selectProgram(prog):
+	if programMoving:
+		return
 	if selectedProgram == prog:
 		deselectProgram()
 		return
@@ -162,6 +164,8 @@ func _on_ActionButton4_pressed():
 	selectAbility(3)
 	
 func selectAbility(n):
+	if programMoving:
+		return
 	if selectedProgram != null:
 		if selectedProgram.abilities.size() > n and not selectedProgram.turnEnded:
 			if selectedProgram.owningPlayerId == currentPlayer and playerTypes[currentPlayer] == 0:

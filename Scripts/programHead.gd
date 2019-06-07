@@ -128,22 +128,28 @@ func gizmoCallback(x : int, y : int):
 		_showMoveGizmos()
 	
 func multiMove(x, y):
+	cam.programMoving = true
 	var path = level.findPathGroup(Vector2(tileX, tileY), [Vector2(x, y)])
 	if path != null:
 		for p in path:
 			if movesLeft <= 0:
-				return
+				break
 			yield(get_tree().create_timer(.25),"timeout")
 			move(p.x, p.y)
 	_showConnectors()
+	cam.programMoving = false
+	return
 
 func movePath(path):
+	cam.programMoving = true
 	if path != null:
 		for p in path:
 			if movesLeft <= 0:
-				return
+				break
 			yield(get_tree().create_timer(.25),"timeout")
 			move(p.x, p.y)
+	cam.programMoving = false
+	return
 	
 func newTurn(): # reset moves and ap
 	movesLeft = movesPerTurn
