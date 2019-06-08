@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/ProgramHead.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Sector.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/Program Icons/Icepick.png" type="Texture" id=3]
 [ext_resource path="res://Sounds/Move.wav" type="AudioStream" id=4]
 [ext_resource path="res://Sounds/Select.wav" type="AudioStream" id=5]
+[ext_resource path="res://Sounds/Death.wav" type="AudioStream" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -41,4 +42,9 @@ one_shot = true
 [node name="SelectSoundPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 volume_db = -7.123
+
+[node name="DeathSoundPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -4.0
+pitch_scale = 5.69
 

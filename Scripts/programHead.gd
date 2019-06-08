@@ -173,6 +173,7 @@ func _die():
 	if cam.selectedProgram == self:
 		cam.deselectProgram()
 	cam.progs[owningPlayerId].erase(self)
+	# Add a temporary sector so that the death animation can be played
 	var tempSector = tailScn.instance()
 	tempSector.tileX = tileX
 	tempSector.tileY = tileY
@@ -180,6 +181,8 @@ func _die():
 	tempSector.position.y = tileY*32
 	get_node("/root").add_child(tempSector)
 	tempSector.die()
+	# play the sound
+	get_node("DeathSoundPlayer").play()
 	clear()
 	queue_free()
 	cam.checkWinner()
