@@ -26,7 +26,7 @@ battleScenePath = "res://Levels/Battle/free for all.tscn"
 
 [node name="NetNode3" parent="." instance=ExtResource( 2 )]
 position = Vector2( -160.978, -22.7905 )
-battleScenePath = "res://Levels/Battle/banhammer vs slingshots.tscn"
+battleScenePath = "res://Levels/Battle/clog and hog.tscn"
 
 [node name="NetNode4" parent="." instance=ExtResource( 2 )]
 modulate = Color( 0, 0.109804, 1, 1 )

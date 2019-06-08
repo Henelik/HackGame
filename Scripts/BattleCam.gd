@@ -95,10 +95,11 @@ func deselectProgram():
 func _AITurn():
 	for p in progs[currentPlayer]:
 		var abRange = 1
-		print(p.progName)
+		print("Now moving AI " + str(currentPlayer) + "'s " + p.progName)
 		if not p.abilities.empty():
 			if p.abilities[0].maxRange > abRange:
 				abRange = p.abilities[0].maxRange
+		
 		var targets = []
 		for i in range(playerTypes.size()): # create the list of target tiles
 			if i == currentPlayer: # don't add this player's programs to the targets
@@ -108,9 +109,10 @@ func _AITurn():
 				for t in o.tailSectors:
 					targets.append(Vector2(t.tileX, t.tileY)) # and tails
 		bMap._updateMoveMap(p)
-		var path = bMap.findPathGroup(Vector2(p.tileX, p.tileY), targets, 1)
-		if path != null:
-			yield(p.movePath(path), "completed")
+		if p.movesPerTurn != 0:
+			var path = bMap.findPathGroup(Vector2(p.tileX, p.tileY), targets, 1)
+			if path != null:
+				yield(p.movePath(path), "completed")
 		if not p.abilities.empty():
 			yield(get_tree().create_timer(.25),"timeout")
 			var t = bMap.findInRange(Vector2(p.tileX, p.tileY), targets, p.abilities[0].maxRange)
