@@ -18,6 +18,18 @@ tile_data = PoolIntArray( -65540, 0, 0, -65539, 0, 0, -65538, 0, 0, -65537, 0, 0
 position = Vector2( -97.1403, -30.6496 )
 owningPlayerId = 1
 
+[node name="Slingshot3" parent="." instance=ExtResource( 3 )]
+position = Vector2( -63.8676, -29.1021 )
+owningPlayerId = 1
+
+[node name="Slingshot2" parent="." instance=ExtResource( 3 )]
+position = Vector2( -95.5928, 0.301786 )
+owningPlayerId = 1
+
+[node name="Slingshot4" parent="." instance=ExtResource( 3 )]
+position = Vector2( -62.32, 1.84933 )
+owningPlayerId = 1
+
 [node name="Page" parent="." instance=ExtResource( 4 )]
 position = Vector2( 223.207, -31.4232 )
 
