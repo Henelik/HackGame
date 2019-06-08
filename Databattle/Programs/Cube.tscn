@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Databattle/ProgramHead.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Sprites/Program Icons/Cube.png" type="Texture" id=2]
+
+[node name="Cube" index="0" instance=ExtResource( 1 )]
+movesPerTurn = 3
+progName = "Cube"
+col = Color( 0.521569, 0.27451, 0.823529, 1 )
+abilityRefs = [ "res://Databattle/Abilities/MultiplyAbility.tscn" ]
+flavorText = "One dimension better than a Square."
+
+[node name="IconSprite" parent="." index="1"]
+texture = ExtResource( 2 )
+
