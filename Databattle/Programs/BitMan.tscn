@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Databattle/ProgramHead.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Sprites/Connector_hori.png" type="Texture" id=2]
+
+[node name="BitMan" instance=ExtResource( 1 )]
+progName = "Bit Man"
+col = Color( 0.14902, 0.870588, 0.498039, 1 )
+abilityRefs = [ "res://Databattle/Abilities/TileSetAbility.tscn", "res://Databattle/Abilities/One.tscn" ]
+
+[node name="IconSprite" parent="." index="1"]
+texture = ExtResource( 2 )
+
