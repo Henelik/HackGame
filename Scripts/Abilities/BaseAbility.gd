@@ -5,11 +5,12 @@ export(String, "enemy", "friend", "self", "level") var targetType # used for UI 
 export(int) var apCost = 1 # number of ability points this consumes
 export(int) var maxRange = 1
 export(Color) var gizmoColor
-var tileX
-var tileY
+var description : String
+var tileX : int
+var tileY : int
 var owningProgram
 var targetProgram
-var gizmos = []
+var gizmos : Array = []
 var camRef
 
 func _ready():
