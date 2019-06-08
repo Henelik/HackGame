@@ -42,8 +42,7 @@ func _on_EndTurnButton_pressed():
 	_nextTurn()
 	
 func _nextTurn():
-	if battleOver:
-		return
+	if battleOver: return
 	get_node("Camera2D/EndTurnButton").visible = true
 	deselectProgram()
 	currentPlayer = (currentPlayer+1)%playerTypes.size() # increment the player
@@ -55,6 +54,7 @@ func _nextTurn():
 	if playerTypes[currentPlayer] == 1: # play as the AI
 		get_node("Camera2D/EndTurnButton").visible = false
 		yield(get_tree().create_timer(.5),"timeout")
+		if battleOver: return
 		_AITurn()
 		
 func selectProgram(prog):

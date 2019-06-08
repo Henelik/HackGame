@@ -1,10 +1,12 @@
 extends "res://Scripts/Abilities/BaseAbility.gd"
 
-export(int) var damage = 1
+export(int) var damage = 2
+export(int) var increase = 2
 
 func fireProgram(target):
 	get_node("AttackSound").play()
 	yield(target.damage(damage), "completed")
+	damage *= increase
 	_postFire()
 	
 func fireTile(tile: Vector2):
