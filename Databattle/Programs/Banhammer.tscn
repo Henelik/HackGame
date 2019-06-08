@@ -4,7 +4,6 @@
 [ext_resource path="res://Sprites/Program Icons/Banhammer.png" type="Texture" id=2]
 
 [node name="Banhammer" instance=ExtResource( 1 )]
-movesPerTurn = 3
 maxSize = 2
 progName = "Banhammer"
 col = Color( 0.92549, 0.176471, 0.176471, 1 )

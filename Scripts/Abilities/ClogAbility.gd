@@ -9,5 +9,6 @@ func fireProgram(target):
 	_postFire()
 	
 func fireTile(tile: Vector2):
-	get_node("AbilitySound").play()
-	_postFire()
+	return
+#	get_node("AbilitySound").play()
+#	_postFire()
