@@ -33,5 +33,10 @@ modulate = Color( 0, 0.109804, 1, 1 )
 position = Vector2( 223.233, -90.159 )
 battleScenePath = "res://Levels/Battle/jump debut.tscn"
 
+[node name="NetNode5" parent="." instance=ExtResource( 2 )]
+modulate = Color( 1, 0.631373, 0, 1 )
+position = Vector2( -420.978, 38.2622 )
+battleScenePath = "res://Levels/Battle/datahog battle.tscn"
+
 [node name="OverworldCam" parent="." instance=ExtResource( 3 )]
 
