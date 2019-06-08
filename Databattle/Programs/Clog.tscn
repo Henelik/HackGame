@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Databattle/ProgramHead.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Sprites/Program Icons/Pickaxe.png" type="Texture" id=2]
+
+[node name="Clog" index="0" instance=ExtResource( 1 )]
+progName = "Clog"
+col = Color( 0.443137, 0.807843, 0.713726, 1 )
+abilityRefs = [ "res://Databattle/Abilities/ClogAbility.tscn" ]
+
+[node name="IconSprite" parent="." index="1"]
+texture = ExtResource( 2 )
+
