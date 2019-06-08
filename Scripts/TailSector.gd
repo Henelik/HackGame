@@ -20,5 +20,6 @@ func _physics_process(delta):
 	if dead:
 		t += delta*deathRate
 		$Sprite.modulate = progColor.linear_interpolate(deadColor, t)
+		$Sprite.scale = $Sprite.scale.linear_interpolate(Vector2(2, 2), t)
 		if t >= 1:
 			queue_free()

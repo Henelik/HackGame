@@ -17,5 +17,6 @@ func _physics_process(delta):
 	if dead:
 		t += delta*deathRate
 		modulate = progColor.linear_interpolate(deadColor, t)
+		scale = scale.linear_interpolate(Vector2(2, 2), t)
 		if t >= 1:
 			queue_free()

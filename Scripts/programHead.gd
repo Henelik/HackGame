@@ -173,6 +173,13 @@ func _die():
 	if cam.selectedProgram == self:
 		cam.deselectProgram()
 	cam.progs[owningPlayerId].erase(self)
+	var tempSector = tailScn.instance()
+	tempSector.tileX = tileX
+	tempSector.tileY = tileY
+	tempSector.position.x = tileX*32
+	tempSector.position.y = tileY*32
+	get_node("/root").add_child(tempSector)
+	tempSector.die()
 	clear()
 	queue_free()
 	cam.checkWinner()
