@@ -5,7 +5,7 @@ export(String, "enemy", "friend", "self", "level") var targetType # used for UI 
 export(int) var apCost = 1 # number of ability points this consumes
 export(int) var maxRange = 1
 export(Color) var gizmoColor
-var description : String
+export(String) var description
 var tileX : int
 var tileY : int
 var owningProgram

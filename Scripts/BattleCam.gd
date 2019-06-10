@@ -5,10 +5,10 @@ var speed = 350
 var velocity = Vector2()
 export(Array, int) var playerTypes # 0 is local, 1 is AI, 2 is online
 export(Array, String) var playerNames
-var currentPlayer # an index of the array
+var currentPlayer : int # an index of the array
 var selectedProgram
 var selectedAbility
-var progs = []
+var progs : Array = []
 var bMap
 var programMoving : bool = false
 var battleOver : bool = false

@@ -4,5 +4,6 @@
 
 [node name="One" index="0" instance=ExtResource( 1 )]
 abilityName = "One"
+description = "Adds a tile to the Grid."
 tileValue = 0
 
