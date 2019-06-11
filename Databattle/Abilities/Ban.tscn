@@ -4,5 +4,5 @@
 
 [node name="AttackAbility" instance=ExtResource( 1 )]
 abilityName = "Ban"
-damage = 10
+damage = 5
 
